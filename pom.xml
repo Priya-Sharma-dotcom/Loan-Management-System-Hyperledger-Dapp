@@ -4,10 +4,10 @@
     
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>fabricjavaclient1</groupId>
-    <artifactId>fabricjavaclient1</artifactId>
+    <groupId>simpleblockchain</groupId>
+    <artifactId>simpleblockchain</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>FabricJavaClient1</name>
+    <name>LoanManagementClient</name>
 
     <build>
         <plugins>
