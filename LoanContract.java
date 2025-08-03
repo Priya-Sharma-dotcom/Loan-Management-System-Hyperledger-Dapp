@@ -12,7 +12,7 @@ import org.hyperledger.fabric.shim.ChaincodeStub;
 import com.owlike.genson.Genson;
 
 @Contract(
-    name = "Loan Contract",
+    name = "LoanContract",
     info = @Info(
         title = "Loan Contract using Hyperledger",
         description = "Chaincode for Loan Management System",
