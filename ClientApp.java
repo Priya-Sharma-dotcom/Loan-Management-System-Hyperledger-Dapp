@@ -1,4 +1,4 @@
-package fabricJavaClient;
+package LoanManagementClient;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
