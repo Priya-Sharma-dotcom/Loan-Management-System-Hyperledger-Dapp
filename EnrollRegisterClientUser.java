@@ -1,4 +1,5 @@
-package fabricJavaClient;
+package LoanManagementClient;
+
 import java.nio.file.Paths;
 import java.security.PrivateKey;
 import java.util.Properties;
