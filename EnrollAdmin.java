@@ -1,4 +1,5 @@
-package fabricJavaClient;
+package LoanManagementClient;
+
 import java.nio.file.Paths;
 import java.util.Properties;
 import org.hyperledger.fabric.gateway.Wallet;
