@@ -1,4 +1,4 @@
-# Loan-Management-System-Hyperledger-Fabric-SDK
+# Loan-Management-System-Hyperledger-Fabric-SDK-Dapp
 
 This project is a Java-based Loan Management System built using Hyperledger Fabric. It includes a smart contract (`LoanContract`) and a client application using the Fabric Java SDK to manage loan lifecycle operations on the blockchain.
 
