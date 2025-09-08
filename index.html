@@ -2,175 +2,228 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' class='h-8 w-8 text-brand-primary' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9 8h6m-5 4h4m5 6H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2z' /%3E%3C/svg%3E" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%236366f1'%3E%3Cpath d='M2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12Z' fill-opacity='0.2'/%3E%3Cpath d='M12 7V12H17' stroke='%236366f1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M9 8h6m-5 4h4m5 6H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2z' fill='%23a5b4fc'/%3E%3C/svg%3E" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Loan Management DApp</title>
+    <title>Loan Management DApp | Hyperledger</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: #0f172a; /* Fallback color */
+        /* Layer a semi-transparent color overlay over the background image */
+        background-image: 
+          linear-gradient(rgba(15, 23, 42, 0.92), rgba(15, 23, 42, 0.92)),
+          url('https://images.unsplash.com/photo-1554995207-c18c203602cb?q=80&w=2070&auto=format&fit=crop');
+        background-size: cover;
+        background-position: center center;
+        background-attachment: fixed; /* Parallax effect */
+        background-repeat: no-repeat;
+      }
+      .glassmorphism {
+        background: rgba(15, 23, 42, 0.6);
+        -webkit-backdrop-filter: blur(12px);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .input-field {
+        background-color: rgba(15, 23, 42, 0.7);
+        border: 1px solid #334155;
+      }
+      .input-field:focus {
+        border-color: #6366f1;
+        box-shadow: 0 0 0 2px #6366f180;
+      }
+      .btn-primary {
+        background-color: #6366f1;
+        color: white;
+        transition: all 0.2s ease-in-out;
+      }
+      .btn-primary:hover {
+        background-color: #4f46e5;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+      }
+      .btn-secondary {
+        background-color: #475569;
+        color: white;
+        transition: all 0.2s ease-in-out;
+      }
+      .btn-secondary:hover {
+        background-color: #334155;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(71, 85, 105, 0.2);
+      }
+    </style>
     <script>
       tailwind.config = {
         theme: {
           extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+            },
             colors: {
-              'brand-primary': '#0D6EFD',
-              'brand-secondary': '#6C757D',
-              'brand-success': '#198754',
-              'brand-danger': '#DC3545',
-              'brand-warning': '#FFC107',
-              'brand-info': '#0DCAF0',
-              'brand-light': '#F8F9FA',
-              'brand-dark': '#212529',
-              'brand-bg': '#1a202c',
-              'brand-surface': '#2d3748',
-              'brand-border': '#4a5568',
-              'brand-text-primary': '#edf2f7',
-              'brand-text-secondary': '#a0aec0',
+                'brand': {
+                    'primary': '#6366f1', // Indigo 500
+                    'primary-hover': '#4f46e5', // Indigo 600
+                    'secondary': '#64748b', // Slate 500
+                    'success': '#22c55e', // Green 500
+                    'danger': '#ef4444', // Red 500
+                    'warning': '#f59e0b', // Amber 500
+                    'info': '#38bdf8', // Light Blue 400
+                    'bg': '#0f172a', // Slate 900
+                    'surface': '#1e293b', // Slate 800
+                    'border': '#334155', // Slate 700
+                    'text-primary': '#f8fafc', // Slate 50
+                    'text-secondary': '#94a3b8', // Slate 400
+                }
             }
           }
         }
       }
     </script>
-<script type="importmap">
-{
-  "imports": {
-    "react": "https://aistudiocdn.com/react@^19.1.1",
-    "react-dom/": "https://aistudiocdn.com/react-dom@^19.1.1/",
-    "react/": "https://aistudiocdn.com/react@^19.1.1/"
-  }
-}
-</script>
 </head>
-<body class="bg-brand-bg text-brand-text-primary">
+<body class="bg-brand-bg text-brand-text-primary antialiased">
 
     <div id="root">
         <div class="min-h-screen">
-            <header class="bg-brand-surface shadow-md p-4 mb-8">
-                <div class="container mx-auto flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-brand-primary mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 8h6m-5 4h4m5 6H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2z" />
+            <header class="p-4 mb-8">
+                <div class="container mx-auto flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-brand-primary mr-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                        <path d="M2 17l10 5 10-5"></path>
+                        <path d="M2 12l10 5 10-5"></path>
                     </svg>
-                    <h1 class="text-2xl font-bold text-brand-text-primary">Hyperledger Loan Management</h1>
+                    <h1 class="text-3xl font-bold text-brand-text-primary tracking-tight">Hyperledger Loan Management</h1>
                 </div>
             </header>
             <main class="container mx-auto px-4 pb-8">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <!-- Actions Column -->
-                    <div class="space-y-8">
-                        <!-- Ledger Initialization Card -->
-                        <div class="bg-brand-surface rounded-lg shadow-lg overflow-hidden border border-brand-border">
-                            <div class="p-4 border-b border-brand-border">
-                                <h2 class="text-xl font-semibold text-brand-text-primary">Ledger Initialization</h2>
-                            </div>
-                            <div class="p-6">
-                                <p class="text-brand-text-secondary mb-4">Initializes the ledger with a default loan. This is a good first step.</p>
-                                <button id="initLedgerBtn" class="px-4 py-2 font-semibold rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-brand-surface disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center bg-brand-primary text-white hover:bg-blue-600 focus:ring-brand-primary">
-                                    submitTransaction("initLedger")
-                                </button>
-                            </div>
-                        </div>
 
-                        <!-- Register Loan Card -->
-                        <div class="bg-brand-surface rounded-lg shadow-lg overflow-hidden border border-brand-border">
-                            <div class="p-4 border-b border-brand-border">
-                                <h2 class="text-xl font-semibold text-brand-text-primary">Register Loan</h2>
-                            </div>
-                            <div class="p-6">
-                                <form id="registerForm" class="space-y-4">
-                                    <div>
-                                        <label for="registerId" class="block text-sm font-medium text-brand-text-secondary mb-1">Loan ID</label>
-                                        <input id="registerId" name="id" value="L002" class="w-full bg-brand-bg border border-brand-border rounded-md px-3 py-2 text-brand-text-primary focus:outline-none focus:ring-2 focus:ring-brand-primary focus:border-transparent">
-                                    </div>
-                                    <div>
-                                        <label for="registerAmount" class="block text-sm font-medium text-brand-text-secondary mb-1">Amount</label>
-                                        <input id="registerAmount" name="amount" type="number" value="15000" class="w-full bg-brand-bg border border-brand-border rounded-md px-3 py-2 text-brand-text-primary focus:outline-none focus:ring-2 focus:ring-brand-primary focus:border-transparent">
-                                    </div>
-                                    <div>
-                                        <label for="registerBorrower" class="block text-sm font-medium text-brand-text-secondary mb-1">Borrower</label>
-                                        <input id="registerBorrower" name="borrower" value="Anjali" class="w-full bg-brand-bg border border-brand-border rounded-md px-3 py-2 text-brand-text-primary focus:outline-none focus:ring-2 focus:ring-brand-primary focus:border-transparent">
-                                    </div>
-                                    <div>
-                                        <label for="registerLender" class="block text-sm font-medium text-brand-text-secondary mb-1">Lender</label>
-                                        <input id="registerLender" name="lender" value="HDFC" class="w-full bg-brand-bg border border-brand-border rounded-md px-3 py-2 text-brand-text-primary focus:outline-none focus:ring-2 focus:ring-brand-primary focus:border-transparent">
-                                    </div>
-                                    <div>
-                                        <label for="registerInterestRate" class="block text-sm font-medium text-brand-text-secondary mb-1">Interest Rate (%)</label>
-                                        <input id="registerInterestRate" name="interestRate" type="number" step="0.1" value="7.2" class="w-full bg-brand-bg border border-brand-border rounded-md px-3 py-2 text-brand-text-primary focus:outline-none focus:ring-2 focus:ring-brand-primary focus:border-transparent">
-                                    </div>
-                                    <button type="submit" id="registerLoanBtn" class="px-4 py-2 font-semibold rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-brand-surface disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center bg-brand-primary text-white hover:bg-blue-600 focus:ring-brand-primary">
-                                        submitTransaction("registerLoan")
-                                    </button>
-                                </form>
-                            </div>
+                <!-- View Switcher -->
+                <div class="mb-8 flex justify-center p-1 rounded-lg glassmorphism w-full md:w-1/3 mx-auto">
+                    <button id="borrowerViewBtn" class="w-1/2 px-4 py-2 text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-opacity-50 transition-colors duration-300">Borrower</button>
+                    <button id="lenderViewBtn" class="w-1/2 px-4 py-2 text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-opacity-50 transition-colors duration-300">Lender</button>
+                </div>
+                
+                <!-- Dashboards -->
+                <div id="borrowerDashboard">
+                    <div class="glassmorphism rounded-xl shadow-2xl overflow-hidden">
+                        <div class="p-4 border-b border-brand-border flex items-center gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-brand-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                            <h2 class="text-xl font-semibold text-brand-text-primary">Register a New Loan</h2>
                         </div>
-
-                        <!-- Loan Actions Card -->
-                        <div class="bg-brand-surface rounded-lg shadow-lg overflow-hidden border border-brand-border">
-                            <div class="p-4 border-b border-brand-border">
-                                <h2 class="text-xl font-semibold text-brand-text-primary">Loan Actions</h2>
-                            </div>
-                            <div class="p-6 space-y-6">
-                                <div>
-                                    <h3 class="font-semibold text-lg mb-2">Create Loan Agreement</h3>
-                                    <div class="flex items-end gap-4">
-                                        <div class="flex-grow">
-                                            <label for="agreementId" class="block text-sm font-medium text-brand-text-secondary mb-1">Loan ID</label>
-                                            <input id="agreementId" value="L002" class="w-full bg-brand-bg border border-brand-border rounded-md px-3 py-2 text-brand-text-primary focus:outline-none focus:ring-2 focus:ring-brand-primary focus:border-transparent">
-                                        </div>
-                                        <button id="createAgreementBtn" class="whitespace-nowrap px-4 py-2 font-semibold rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-brand-surface disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center bg-brand-secondary text-white hover:bg-gray-600 focus:ring-brand-secondary">
-                                            createLoanAgreement
-                                        </button>
-                                    </div>
+                        <div class="p-6">
+                            <form id="registerForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="col-span-1">
+                                    <label for="registerId" class="block text-sm font-medium text-brand-text-secondary mb-1">Loan ID</label>
+                                    <input id="registerId" name="id" value="L002" class="w-full input-field rounded-md px-3 py-2 text-brand-text-primary focus:outline-none transition-all">
                                 </div>
-                                <div>
-                                    <h3 class="font-semibold text-lg mb-2">Update Loan Amount</h3>
-                                    <div class="flex items-end gap-4">
-                                        <div class="flex-grow">
-                                          <label for="updateId" class="block text-sm font-medium text-brand-text-secondary mb-1">Loan ID</label>
-                                          <input id="updateId" name="id" value="L002" class="w-full bg-brand-bg border border-brand-border rounded-md px-3 py-2 text-brand-text-primary focus:outline-none focus:ring-2 focus:ring-brand-primary focus:border-transparent">
-                                        </div>
-                                        <div class="flex-grow">
-                                            <label for="updateAmount" class="block text-sm font-medium text-brand-text-secondary mb-1">New Amount</label>
-                                            <input id="updateAmount" name="amount" type="number" value="18000" class="w-full bg-brand-bg border border-brand-border rounded-md px-3 py-2 text-brand-text-primary focus:outline-none focus:ring-2 focus:ring-brand-primary focus:border-transparent">
-                                        </div>
-                                        <button id="updateAmountBtn" class="whitespace-nowrap px-4 py-2 font-semibold rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-brand-surface disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center bg-brand-secondary text-white hover:bg-gray-600 focus:ring-brand-secondary">
-                                            updateLoanAmount
-                                        </button>
+                                <div class="col-span-1">
+                                    <label for="registerAmount" class="block text-sm font-medium text-brand-text-secondary mb-1">Amount ($)</label>
+                                    <input id="registerAmount" name="amount" type="number" value="15000" class="w-full input-field rounded-md px-3 py-2 text-brand-text-primary focus:outline-none transition-all">
+                                </div>
+                                <div class="col-span-1">
+                                    <label for="registerBorrower" class="block text-sm font-medium text-brand-text-secondary mb-1">Borrower</label>
+                                    <input id="registerBorrower" name="borrower" value="Anjali" class="w-full input-field rounded-md px-3 py-2 text-brand-text-primary focus:outline-none transition-all">
+                                </div>
+                                <div class="col-span-1">
+                                    <label for="registerLender" class="block text-sm font-medium text-brand-text-secondary mb-1">Lender</label>
+                                    <input id="registerLender" name="lender" value="HDFC" class="w-full input-field rounded-md px-3 py-2 text-brand-text-primary focus:outline-none transition-all">
+                                </div>
+                                <div class="col-span-full">
+                                    <label for="registerInterestRate" class="block text-sm font-medium text-brand-text-secondary mb-1">Interest Rate (%)</label>
+                                    <input id="registerInterestRate" name="interestRate" type="number" step="0.1" value="7.2" class="w-full input-field rounded-md px-3 py-2 text-brand-text-primary focus:outline-none transition-all">
+                                </div>
+                                <div class="col-span-full mt-2">
+                                    <button type="submit" id="registerLoanBtn" class="w-full btn-primary px-4 py-2 font-semibold rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-brand-surface disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center">
+                                        Register Loan
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="lenderDashboard" style="display: none;">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="glassmorphism rounded-xl shadow-2xl overflow-hidden">
+                             <div class="p-4 border-b border-brand-border flex items-center gap-3"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-brand-info" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" /></svg><h2 class="text-xl font-semibold">Update Loan Amount</h2></div>
+                            <div class="p-6">
+                                <div class="flex items-end gap-4">
+                                    <div class="flex-grow">
+                                        <label for="updateId" class="block text-sm font-medium text-brand-text-secondary mb-1">Loan ID</label>
+                                        <input id="updateId" name="id" value="L001" class="w-full input-field rounded-md px-3 py-2 text-brand-text-primary focus:outline-none transition-all">
                                     </div>
+                                    <div class="flex-grow">
+                                        <label for="updateAmount" class="block text-sm font-medium text-brand-text-secondary mb-1">New Amount</label>
+                                        <input id="updateAmount" name="amount" type="number" value="12000" class="w-full input-field rounded-md px-3 py-2 text-brand-text-primary focus:outline-none transition-all">
+                                    </div>
+                                    <button id="updateAmountBtn" class="whitespace-nowrap btn-secondary px-4 py-2 font-semibold rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-brand-surface disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center">
+                                        Update
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="glassmorphism rounded-xl shadow-2xl overflow-hidden">
+                             <div class="p-4 border-b border-brand-border flex items-center gap-3"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-brand-info" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg><h2 class="text-xl font-semibold">Update Interest Rate</h2></div>
+                            <div class="p-6">
+                                <div class="flex items-end gap-4">
+                                    <div class="flex-grow">
+                                        <label for="updateInterestId" class="block text-sm font-medium text-brand-text-secondary mb-1">Loan ID</label>
+                                        <input id="updateInterestId" name="id" value="L001" class="w-full input-field rounded-md px-3 py-2 text-brand-text-primary focus:outline-none transition-all">
+                                    </div>
+                                    <div class="flex-grow">
+                                        <label for="updateInterestRate" class="block text-sm font-medium text-brand-text-secondary mb-1">New Rate (%)</label>
+                                        <input id="updateInterestRate" name="interestRate" type="number" step="0.1" value="6.5" class="w-full input-field rounded-md px-3 py-2 text-brand-text-primary focus:outline-none transition-all">
+                                    </div>
+                                    <button id="updateInterestRateBtn" class="whitespace-nowrap btn-secondary px-4 py-2 font-semibold rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-brand-surface disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center">
+                                        Update
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Query Column -->
-                    <div class="space-y-8">
-                        <div class="bg-brand-surface rounded-lg shadow-lg overflow-hidden border border-brand-border">
-                            <div class="p-4 border-b border-brand-border">
-                                <h2 class="text-xl font-semibold text-brand-text-primary">Query Loan Details</h2>
-                            </div>
-                            <div class="p-6">
-                                <div class="flex items-end gap-4">
-                                    <div class="flex-grow">
-                                        <label for="queryId" class="block text-sm font-medium text-brand-text-secondary mb-1">Loan ID</label>
-                                        <input id="queryId" value="L002" class="w-full bg-brand-bg border border-brand-border rounded-md px-3 py-2 text-brand-text-primary focus:outline-none focus:ring-2 focus:ring-brand-primary focus:border-transparent">
-                                    </div>
-                                    <button id="getLoanBtn" class="px-4 py-2 font-semibold rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-brand-surface disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center bg-brand-primary text-white hover:bg-blue-600 focus:ring-brand-primary">
-                                        evaluateTransaction("getLoanById")
-                                    </button>
-                                </div>
-                                <div id="queryResultContainer" class="mt-6 bg-brand-bg p-4 rounded-md border border-brand-border" style="display: none;">
-                                    <h3 class="text-lg font-semibold text-brand-text-primary mb-2">Query Result:</h3>
-                                    <pre id="queryResult" class="text-sm text-green-300 whitespace-pre-wrap"></pre>
-                                </div>
-                            </div>
+                <!-- All Loans Table -->
+                <div class="glassmorphism rounded-xl shadow-2xl mt-8">
+                    <div class="p-4 border-b border-brand-border flex justify-between items-center">
+                        <div class="flex items-center gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-brand-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+                            <h2 class="text-xl font-semibold text-brand-text-primary">All Registered Loans</h2>
                         </div>
+                        <button id="initLedgerBtn" class="px-3 py-1.5 text-sm font-semibold rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-brand-surface disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 bg-brand-info/20 text-brand-info border border-brand-info/30 hover:bg-brand-info/30 transition-colors">
+                            Initialize Ledger
+                        </button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-brand-text-secondary">
+                            <thead class="text-xs text-brand-text-primary uppercase bg-white/5">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3">Loan ID</th>
+                                    <th scope="col" class="px-6 py-3">Borrower</th>
+                                    <th scope="col" class="px-6 py-3">Lender</th>
+                                    <th scope="col" class="px-6 py-3">Amount</th>
+                                    <th scope="col" class="px-6 py-3">Status</th>
+                                    <th id="actionsHeader" scope="col" class="px-6 py-3 text-center" style="display: none;">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="loansTableBody">
+                                <!-- Rows will be injected by JS -->
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
                 <!-- Log Panel -->
-                <div class="bg-brand-surface rounded-lg shadow-lg border border-brand-border mt-8">
-                    <div class="p-4 border-b border-brand-border">
+                <div class="glassmorphism rounded-xl shadow-2xl mt-8">
+                    <div class="p-4 border-b border-brand-border flex items-center gap-3">
+                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-brand-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h7" /></svg>
                         <h2 class="text-xl font-semibold text-brand-text-primary">Transaction Log</h2>
                     </div>
-                    <div id="logPanel" class="p-4 h-64 overflow-y-auto font-mono text-sm">
+                    <div id="logPanel" class="p-4 h-64 overflow-y-auto font-mono text-sm space-y-2">
                         <p class="text-brand-text-secondary">No transactions yet. Click a button to begin.</p>
                     </div>
                 </div>
@@ -189,198 +242,255 @@
                     await simulateNetworkDelay();
                     ledger.clear();
                     const initialLoan = {
-                        id: 'L001',
-                        amount: '10000',
-                        borrower: 'Satoshi',
-                        lender: 'Hyperbank',
-                        interestRate: '5.0',
-                        status: 'Registered',
+                        id: 'L001', amount: '10000', borrower: 'Satoshi', lender: 'Hyperbank', interestRate: '5.0', status: 'Pending',
                     };
                     ledger.set(initialLoan.id, initialLoan);
-                    return 'Ledger initialized successfully with sample loan L001.';
+                    return 'Ledger initialized with one pending loan (L001).';
                 }
 
                 async registerLoan(id, amount, borrower, lender, interestRate) {
                     await simulateNetworkDelay();
-                    if (ledger.has(id)) {
-                        throw new Error(`Loan with ID ${id} already exists.`);
-                    }
-                    const newLoan = { id, amount, borrower, lender, interestRate, status: 'Registered' };
+                    if (!id || !amount || !borrower || !lender || !interestRate) throw new Error('All fields are required for loan registration.');
+                    if (ledger.has(id)) throw new Error(`Loan with ID ${id} already exists.`);
+                    const newLoan = { id, amount, borrower, lender, interestRate, status: 'Pending' };
                     ledger.set(id, newLoan);
-                    return `Loan ${id} registered successfully for ${borrower}.`;
+                    return `Loan ${id} registered successfully for ${borrower}. Status: Pending.`;
+                }
+                
+                async approveLoan(loanId) {
+                    await simulateNetworkDelay(600);
+                    const loan = ledger.get(loanId);
+                    if (!loan) throw new Error(`Loan with ID ${loanId} not found.`);
+                    if (loan.status !== 'Pending') throw new Error(`Loan ${loanId} is not in 'Pending' state.`);
+                    loan.status = 'Approved';
+                    ledger.set(loanId, loan);
+                    return `Loan ${loanId} has been approved.`;
                 }
 
-                async createLoanAgreement(loanId) {
-                    await simulateNetworkDelay(700);
+                async rejectLoan(loanId) {
+                    await simulateNetworkDelay(600);
                     const loan = ledger.get(loanId);
-                    if (!loan) {
-                        throw new Error(`Loan with ID ${loanId} not found.`);
-                    }
-                    if (loan.status !== 'Registered') {
-                        throw new Error(`Loan ${loanId} is not in 'Registered' state. Current state: ${loan.status}`);
-                    }
-                    loan.status = 'AgreementCreated';
+                    if (!loan) throw new Error(`Loan with ID ${loanId} not found.`);
+                    if (loan.status !== 'Pending') throw new Error(`Loan ${loanId} is not in 'Pending' state.`);
+                    loan.status = 'Rejected';
                     ledger.set(loanId, loan);
-                    return `Loan agreement for ${loanId} created successfully.`;
+                    return `Loan ${loanId} has been rejected.`;
                 }
 
                 async updateLoanAmount(loanId, newAmount) {
                     await simulateNetworkDelay(800);
                     const loan = ledger.get(loanId);
-                    if (!loan) {
-                        throw new Error(`Loan with ID ${loanId} not found.`);
-                    }
+                    if (!loan) throw new Error(`Loan with ID ${loanId} not found.`);
                     loan.amount = newAmount;
                     ledger.set(loanId, loan);
-                    return `Loan amount for ${loanId} updated to ${newAmount} successfully.`;
+                    return `Loan amount for ${loanId} updated to ${newAmount}.`;
+                }
+                
+                async updateLoanInterestRate(loanId, newRate) {
+                    await simulateNetworkDelay(800);
+                    const loan = ledger.get(loanId);
+                    if (!loan) throw new Error(`Loan with ID ${loanId} not found.`);
+                    loan.interestRate = newRate;
+                    ledger.set(loanId, loan);
+                    return `Interest rate for ${loanId} updated to ${newRate}%.`;
                 }
 
-                async getLoanById(loanId) {
-                    await simulateNetworkDelay(400);
-                    const loan = ledger.get(loanId);
-                    if (!loan) {
-                        throw new Error(`Loan with ID ${loanId} not found.`);
-                    }
-                    return JSON.stringify(loan, null, 2);
+                async getAllLoans() {
+                    await simulateNetworkDelay(200);
+                    return Array.from(ledger.values()).sort((a,b) => a.id.localeCompare(b.id));
                 }
             }
             const fabricService = new FabricService();
 
             // --- State and Constants ---
             let logs = [];
-            const LogType = {
-                INFO: 'INFO',
-                SUCCESS: 'SUCCESS',
-                ERROR: 'ERROR',
-                WARN: 'WARN',
-            };
+            let currentView = 'borrower';
+            const LogType = { INFO: 'INFO', SUCCESS: 'SUCCESS', ERROR: 'ERROR' };
 
             // --- DOM Element References ---
-            const initLedgerBtn = document.getElementById('initLedgerBtn');
-            const registerForm = document.getElementById('registerForm');
-            const registerLoanBtn = document.getElementById('registerLoanBtn');
-            const createAgreementBtn = document.getElementById('createAgreementBtn');
-            const updateAmountBtn = document.getElementById('updateAmountBtn');
-            const getLoanBtn = document.getElementById('getLoanBtn');
-
             const logPanel = document.getElementById('logPanel');
-            const queryResultContainer = document.getElementById('queryResultContainer');
-            const queryResultPre = document.getElementById('queryResult');
+            const borrowerViewBtn = document.getElementById('borrowerViewBtn');
+            const lenderViewBtn = document.getElementById('lenderViewBtn');
+            const borrowerDashboard = document.getElementById('borrowerDashboard');
+            const lenderDashboard = document.getElementById('lenderDashboard');
+            const loansTableBody = document.getElementById('loansTableBody');
+            const actionsHeader = document.getElementById('actionsHeader');
 
             // --- UI Rendering Functions ---
+            const ICONS = {
+                SUCCESS: `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>`,
+                ERROR: `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" /></svg>`,
+                INFO: `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" /></svg>`
+            };
+
             function renderLogs() {
                 if (logs.length === 0) {
                     logPanel.innerHTML = `<p class="text-brand-text-secondary">No transactions yet. Click a button to begin.</p>`;
                     return;
                 }
-
                 const logTypeClasses = {
-                    [LogType.INFO]: 'text-blue-400',
-                    [LogType.SUCCESS]: 'text-green-400',
-                    [LogType.ERROR]: 'text-red-400',
-                    [LogType.WARN]: 'text-yellow-400',
+                    [LogType.INFO]: 'text-brand-info',
+                    [LogType.SUCCESS]: 'text-brand-success',
+                    [LogType.ERROR]: 'text-brand-danger',
                 };
-                
-                const logsHtml = logs.map(log => `
-                    <div class="flex">
-                        <span class="text-brand-text-secondary mr-2">${log.timestamp}</span>
-                        <span class="${logTypeClasses[log.type]} font-bold mr-2">[${log.type}]</span>
-                        <p class="flex-1 whitespace-pre-wrap">${log.message}</p>
-                    </div>
-                `).join('');
-                
-                logPanel.innerHTML = logsHtml;
+                logPanel.innerHTML = logs.map(log => `
+                    <div class="flex items-start ${logTypeClasses[log.type]}">
+                        <div class="flex-shrink-0">${ICONS[log.type]}</div>
+                        <div class="flex-1">
+                            <span class="font-bold mr-2">[${log.timestamp}]</span>
+                            <span class="whitespace-pre-wrap">${log.message}</span>
+                        </div>
+                    </div>`).join('');
+                logPanel.scrollTop = 0;
             }
 
-            function renderQueryResult(result) {
-                if (result) {
-                    queryResultPre.textContent = result;
-                    queryResultContainer.style.display = 'block';
-                } else {
-                    queryResultPre.textContent = '';
-                    queryResultContainer.style.display = 'none';
+            const statusStyles = {
+                Pending: 'bg-brand-warning/10 text-brand-warning border-brand-warning/20',
+                Approved: 'bg-brand-success/10 text-brand-success border-brand-success/20',
+                Rejected: 'bg-brand-danger/10 text-brand-danger border-brand-danger/20',
+            };
+
+            async function renderLoansTable() {
+                const loans = await fabricService.getAllLoans();
+                if (loans.length === 0) {
+                    loansTableBody.innerHTML = `<tr><td colspan="6" class="text-center py-8 px-6 text-brand-text-secondary">No loans found. Initialize the ledger to get started.</td></tr>`;
+                    return;
                 }
+
+                loansTableBody.innerHTML = loans.map(loan => {
+                    const isLenderView = currentView === 'lender';
+                    const isPending = loan.status === 'Pending';
+                    const actionsCell = isLenderView ? `
+                        <td class="px-6 py-4 text-center">
+                            ${isPending ? `
+                            <div class="flex gap-2 justify-center">
+                                <button data-loan-id="${loan.id}" class="approve-btn px-2 py-1 text-xs font-medium rounded-md bg-brand-success text-white hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors">Approve</button>
+                                <button data-loan-id="${loan.id}" class="reject-btn px-2 py-1 text-xs font-medium rounded-md bg-brand-danger text-white hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 transition-colors">Reject</button>
+                            </div>
+                            ` : `<span class="text-xs text-brand-text-secondary italic">Processed</span>`}
+                        </td>` : '';
+
+                    return `
+                        <tr class="border-b border-brand-border hover:bg-white/5 transition-colors duration-200">
+                            <td class="px-6 py-4 font-medium text-brand-text-primary whitespace-nowrap">${loan.id}</td>
+                            <td class="px-6 py-4">${loan.borrower}</td>
+                            <td class="px-6 py-4">${loan.lender}</td>
+                            <td class="px-6 py-4">$${parseFloat(loan.amount).toLocaleString()}</td>
+                            <td class="px-6 py-4"><span class="px-2 py-1 text-xs font-semibold rounded-full border ${statusStyles[loan.status] || ''}">${loan.status}</span></td>
+                            ${actionsCell}
+                        </tr>
+                    `;
+                }).join('');
+            }
+
+            function updateView() {
+                const isLender = currentView === 'lender';
+                borrowerDashboard.style.display = isLender ? 'none' : 'block';
+                lenderDashboard.style.display = isLender ? 'block' : 'none';
+                actionsHeader.style.display = isLender ? '' : 'none';
+                
+                borrowerViewBtn.classList.toggle('bg-brand-primary', !isLender);
+                borrowerViewBtn.classList.toggle('text-white', !isLender);
+                lenderViewBtn.classList.toggle('bg-brand-primary', isLender);
+                lenderViewBtn.classList.toggle('text-white', isLender);
+
+                renderLoansTable();
             }
 
             // --- UI Helper Functions ---
             function getSpinnerSVG() {
-                return `<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>`;
+                return `<svg class="animate-spin h-5 w-5 mr-2 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>`;
             }
 
             function toggleButtonLoading(button, isLoading) {
+                if (!button) return;
                 button.disabled = isLoading;
                 if (isLoading) {
                     button.dataset.originalContent = button.innerHTML;
-                    button.innerHTML = getSpinnerSVG() + button.dataset.originalContent;
+                    const text = button.innerText;
+                    button.innerHTML = getSpinnerSVG() + `<span>${text}</span>`;
                 } else if (button.dataset.originalContent) {
                     button.innerHTML = button.dataset.originalContent;
                 }
             }
             
             function escapeHtml(unsafe) {
-                return unsafe
-                     .replace(/&/g, "&amp;")
-                     .replace(/</g, "&lt;")
-                     .replace(/>/g, "&gt;")
-                     .replace(/"/g, "&quot;")
-                     .replace(/'/g, "&#039;");
+                return unsafe.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
             }
 
             function addLog(message, type) {
                 const timestamp = new Date().toLocaleTimeString();
                 logs.unshift({ type, message: escapeHtml(message), timestamp });
+                if (logs.length > 50) logs.pop(); // Keep log history manageable
                 renderLogs();
             }
 
             // --- Core Action Handler ---
-            async function handleAction(action, args, button, successMessagePrefix = '') {
+            async function handleAction(action, args, button) {
                 toggleButtonLoading(button, true);
                 try {
                     const result = await action(...args);
-                    addLog(`${successMessagePrefix}${result}`, LogType.SUCCESS);
-                    return result;
+                    addLog(result, LogType.SUCCESS);
+                    await renderLoansTable(); // Re-render table on success
                 } catch (error) {
                     addLog(error.message, LogType.ERROR);
-                    return null;
                 } finally {
                     toggleButtonLoading(button, false);
                 }
             }
 
             // --- Event Listeners ---
-            initLedgerBtn.addEventListener('click', () => {
-                handleAction(fabricService.initLedger.bind(fabricService), [], initLedgerBtn);
-            });
+            borrowerViewBtn.addEventListener('click', () => { currentView = 'borrower'; updateView(); });
+            lenderViewBtn.addEventListener('click', () => { currentView = 'lender'; updateView(); });
+            
+            document.getElementById('initLedgerBtn').addEventListener('click', (e) => handleAction(fabricService.initLedger, [], e.currentTarget));
 
-            registerForm.addEventListener('submit', (e) => {
+            document.getElementById('registerForm').addEventListener('submit', (e) => {
                 e.preventDefault();
-                const id = document.getElementById('registerId').value;
-                const amount = document.getElementById('registerAmount').value;
-                const borrower = document.getElementById('registerBorrower').value;
-                const lender = document.getElementById('registerLender').value;
-                const interestRate = document.getElementById('registerInterestRate').value;
-                handleAction(fabricService.registerLoan.bind(fabricService), [id, amount, borrower, lender, interestRate], registerLoanBtn);
+                const form = e.currentTarget;
+                const id = form.querySelector('#registerId').value;
+                const amount = form.querySelector('#registerAmount').value;
+                const borrower = form.querySelector('#registerBorrower').value;
+                const lender = form.querySelector('#registerLender').value;
+                const interestRate = form.querySelector('#registerInterestRate').value;
+                handleAction(fabricService.registerLoan, [id, amount, borrower, lender, interestRate], form.querySelector('button'));
             });
             
-            createAgreementBtn.addEventListener('click', () => {
-                const agreementId = document.getElementById('agreementId').value;
-                handleAction(fabricService.createLoanAgreement.bind(fabricService), [agreementId], createAgreementBtn);
-            });
-            
-            updateAmountBtn.addEventListener('click', () => {
-                const updateId = document.getElementById('updateId').value;
-                const updateAmount = document.getElementById('updateAmount').value;
-                handleAction(fabricService.updateLoanAmount.bind(fabricService), [updateId, updateAmount], updateAmountBtn);
+            document.getElementById('updateAmountBtn').addEventListener('click', (e) => {
+                const id = document.getElementById('updateId').value;
+                const amount = document.getElementById('updateAmount').value;
+                handleAction(fabricService.updateLoanAmount, [id, amount], e.currentTarget);
             });
 
-            getLoanBtn.addEventListener('click', async () => {
-                const queryId = document.getElementById('queryId').value;
-                renderQueryResult(null);
-                const result = await handleAction(fabricService.getLoanById.bind(fabricService), [queryId], getLoanBtn);
-                if (result) {
-                    renderQueryResult(result);
+            document.getElementById('updateInterestRateBtn').addEventListener('click', (e) => {
+                const id = document.getElementById('updateInterestId').value;
+                const rate = document.getElementById('updateInterestRate').value;
+                handleAction(fabricService.updateLoanInterestRate, [id, rate], e.currentTarget);
+            });
+
+            // Event delegation for table actions
+            loansTableBody.addEventListener('click', (e) => {
+                const target = e.target.closest('button');
+                if (!target) return;
+
+                const loanId = target.dataset.loanId;
+                if (!loanId) return;
+
+                if (target.classList.contains('approve-btn')) {
+                    handleAction(fabricService.approveLoan, [loanId], target);
+                } else if (target.classList.contains('reject-btn')) {
+                    handleAction(fabricService.rejectLoan, [loanId], target);
                 }
             });
+
+            // --- Initial Load ---
+            async function initializeApp() {
+                addLog('Application loaded. Initializing ledger...', LogType.INFO);
+                await handleAction(fabricService.initLedger, [], document.getElementById('initLedgerBtn'));
+                updateView();
+            }
+
+            initializeApp();
 
         })();
     </script>
