@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' class='h-8 w-8 text-brand-primary' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9 8h6m-5 4h4m5 6H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2z' /%3E%3C/svg%3E" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Loan Management DApp</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'brand-primary': '#0D6EFD',
+              'brand-secondary': '#6C757D',
+              'brand-success': '#198754',
+              'brand-danger': '#DC3545',
+              'brand-warning': '#FFC107',
+              'brand-info': '#0DCAF0',
+              'brand-light': '#F8F9FA',
+              'brand-dark': '#212529',
+              'brand-bg': '#1a202c',
+              'brand-surface': '#2d3748',
+              'brand-border': '#4a5568',
+              'brand-text-primary': '#edf2f7',
+              'brand-text-secondary': '#a0aec0',
+            }
+          }
+        }
+      }
+    </script>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.1.1",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.1.1/",
+    "react/": "https://aistudiocdn.com/react@^19.1.1/"
+  }
+}
+</script>
+</head>
+<body class="bg-brand-bg text-brand-text-primary">
+
+    <div id="root">
+        <div class="min-h-screen">
+            <header class="bg-brand-surface shadow-md p-4 mb-8">
+                <div class="container mx-auto flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-brand-primary mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 8h6m-5 4h4m5 6H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2z" />
+                    </svg>
+                    <h1 class="text-2xl font-bold text-brand-text-primary">Hyperledger Loan Management</h1>
+                </div>
+            </header>
+            <main class="container mx-auto px-4 pb-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Actions Column -->
+                    <div class="space-y-8">
+                        <!-- Ledger Initialization Card -->
+                        <div class="bg-brand-surface rounded-lg shadow-lg overflow-hidden border border-brand-border">
+                            <div class="p-4 border-b border-brand-border">
+                                <h2 class="text-xl font-semibold text-brand-text-primary">Ledger Initialization</h2>
+                            </div>
+                            <div class="p-6">
+                                <p class="text-brand-text-secondary mb-4">Initializes the ledger with a default loan. This is a good first step.</p>
+                                <button id="initLedgerBtn" class="px-4 py-2 font-semibold rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-brand-surface disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center bg-brand-primary text-white hover:bg-blue-600 focus:ring-brand-primary">
+                                    submitTransaction("initLedger")
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Register Loan Card -->
+                        <div class="bg-brand-surface rounded-lg shadow-lg overflow-hidden border border-brand-border">
+                            <div class="p-4 border-b border-brand-border">
+                                <h2 class="text-xl font-semibold text-brand-text-primary">Register Loan</h2>
+                            </div>
+                            <div class="p-6">
+                                <form id="registerForm" class="space-y-4">
+                                    <div>
+                                        <label for="registerId" class="block text-sm font-medium text-brand-text-secondary mb-1">Loan ID</label>
+                                        <input id="registerId" name="id" value="L002" class="w-full bg-brand-bg border border-brand-border rounded-md px-3 py-2 text-brand-text-primary focus:outline-none focus:ring-2 focus:ring-brand-primary focus:border-transparent">
+                                    </div>
+                                    <div>
+                                        <label for="registerAmount" class="block text-sm font-medium text-brand-text-secondary mb-1">Amount</label>
+                                        <input id="registerAmount" name="amount" type="number" value="15000" class="w-full bg-brand-bg border border-brand-border rounded-md px-3 py-2 text-brand-text-primary focus:outline-none focus:ring-2 focus:ring-brand-primary focus:border-transparent">
+                                    </div>
+                                    <div>
+                                        <label for="registerBorrower" class="block text-sm font-medium text-brand-text-secondary mb-1">Borrower</label>
+                                        <input id="registerBorrower" name="borrower" value="Anjali" class="w-full bg-brand-bg border border-brand-border rounded-md px-3 py-2 text-brand-text-primary focus:outline-none focus:ring-2 focus:ring-brand-primary focus:border-transparent">
+                                    </div>
+                                    <div>
+                                        <label for="registerLender" class="block text-sm font-medium text-brand-text-secondary mb-1">Lender</label>
+                                        <input id="registerLender" name="lender" value="HDFC" class="w-full bg-brand-bg border border-brand-border rounded-md px-3 py-2 text-brand-text-primary focus:outline-none focus:ring-2 focus:ring-brand-primary focus:border-transparent">
+                                    </div>
+                                    <div>
+                                        <label for="registerInterestRate" class="block text-sm font-medium text-brand-text-secondary mb-1">Interest Rate (%)</label>
+                                        <input id="registerInterestRate" name="interestRate" type="number" step="0.1" value="7.2" class="w-full bg-brand-bg border border-brand-border rounded-md px-3 py-2 text-brand-text-primary focus:outline-none focus:ring-2 focus:ring-brand-primary focus:border-transparent">
+                                    </div>
+                                    <button type="submit" id="registerLoanBtn" class="px-4 py-2 font-semibold rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-brand-surface disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center bg-brand-primary text-white hover:bg-blue-600 focus:ring-brand-primary">
+                                        submitTransaction("registerLoan")
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Loan Actions Card -->
+                        <div class="bg-brand-surface rounded-lg shadow-lg overflow-hidden border border-brand-border">
+                            <div class="p-4 border-b border-brand-border">
+                                <h2 class="text-xl font-semibold text-brand-text-primary">Loan Actions</h2>
+                            </div>
+                            <div class="p-6 space-y-6">
+                                <div>
+                                    <h3 class="font-semibold text-lg mb-2">Create Loan Agreement</h3>
+                                    <div class="flex items-end gap-4">
+                                        <div class="flex-grow">
+                                            <label for="agreementId" class="block text-sm font-medium text-brand-text-secondary mb-1">Loan ID</label>
+                                            <input id="agreementId" value="L002" class="w-full bg-brand-bg border border-brand-border rounded-md px-3 py-2 text-brand-text-primary focus:outline-none focus:ring-2 focus:ring-brand-primary focus:border-transparent">
+                                        </div>
+                                        <button id="createAgreementBtn" class="whitespace-nowrap px-4 py-2 font-semibold rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-brand-surface disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center bg-brand-secondary text-white hover:bg-gray-600 focus:ring-brand-secondary">
+                                            createLoanAgreement
+                                        </button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-lg mb-2">Update Loan Amount</h3>
+                                    <div class="flex items-end gap-4">
+                                        <div class="flex-grow">
+                                          <label for="updateId" class="block text-sm font-medium text-brand-text-secondary mb-1">Loan ID</label>
+                                          <input id="updateId" name="id" value="L002" class="w-full bg-brand-bg border border-brand-border rounded-md px-3 py-2 text-brand-text-primary focus:outline-none focus:ring-2 focus:ring-brand-primary focus:border-transparent">
+                                        </div>
+                                        <div class="flex-grow">
+                                            <label for="updateAmount" class="block text-sm font-medium text-brand-text-secondary mb-1">New Amount</label>
+                                            <input id="updateAmount" name="amount" type="number" value="18000" class="w-full bg-brand-bg border border-brand-border rounded-md px-3 py-2 text-brand-text-primary focus:outline-none focus:ring-2 focus:ring-brand-primary focus:border-transparent">
+                                        </div>
+                                        <button id="updateAmountBtn" class="whitespace-nowrap px-4 py-2 font-semibold rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-brand-surface disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center bg-brand-secondary text-white hover:bg-gray-600 focus:ring-brand-secondary">
+                                            updateLoanAmount
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Query Column -->
+                    <div class="space-y-8">
+                        <div class="bg-brand-surface rounded-lg shadow-lg overflow-hidden border border-brand-border">
+                            <div class="p-4 border-b border-brand-border">
+                                <h2 class="text-xl font-semibold text-brand-text-primary">Query Loan Details</h2>
+                            </div>
+                            <div class="p-6">
+                                <div class="flex items-end gap-4">
+                                    <div class="flex-grow">
+                                        <label for="queryId" class="block text-sm font-medium text-brand-text-secondary mb-1">Loan ID</label>
+                                        <input id="queryId" value="L002" class="w-full bg-brand-bg border border-brand-border rounded-md px-3 py-2 text-brand-text-primary focus:outline-none focus:ring-2 focus:ring-brand-primary focus:border-transparent">
+                                    </div>
+                                    <button id="getLoanBtn" class="px-4 py-2 font-semibold rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-brand-surface disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center bg-brand-primary text-white hover:bg-blue-600 focus:ring-brand-primary">
+                                        evaluateTransaction("getLoanById")
+                                    </button>
+                                </div>
+                                <div id="queryResultContainer" class="mt-6 bg-brand-bg p-4 rounded-md border border-brand-border" style="display: none;">
+                                    <h3 class="text-lg font-semibold text-brand-text-primary mb-2">Query Result:</h3>
+                                    <pre id="queryResult" class="text-sm text-green-300 whitespace-pre-wrap"></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Log Panel -->
+                <div class="bg-brand-surface rounded-lg shadow-lg border border-brand-border mt-8">
+                    <div class="p-4 border-b border-brand-border">
+                        <h2 class="text-xl font-semibold text-brand-text-primary">Transaction Log</h2>
+                    </div>
+                    <div id="logPanel" class="p-4 h-64 overflow-y-auto font-mono text-sm">
+                        <p class="text-brand-text-secondary">No transactions yet. Click a button to begin.</p>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    <script>
+        // IIFE to encapsulate the application logic
+        (function() {
+            // --- Mock Fabric Service ---
+            let ledger = new Map();
+            const simulateNetworkDelay = (delay = 500) => new Promise(resolve => setTimeout(resolve, delay));
+
+            class FabricService {
+                async initLedger() {
+                    await simulateNetworkDelay();
+                    ledger.clear();
+                    const initialLoan = {
+                        id: 'L001',
+                        amount: '10000',
+                        borrower: 'Satoshi',
+                        lender: 'Hyperbank',
+                        interestRate: '5.0',
+                        status: 'Registered',
+                    };
+                    ledger.set(initialLoan.id, initialLoan);
+                    return 'Ledger initialized successfully with sample loan L001.';
+                }
+
+                async registerLoan(id, amount, borrower, lender, interestRate) {
+                    await simulateNetworkDelay();
+                    if (ledger.has(id)) {
+                        throw new Error(`Loan with ID ${id} already exists.`);
+                    }
+                    const newLoan = { id, amount, borrower, lender, interestRate, status: 'Registered' };
+                    ledger.set(id, newLoan);
+                    return `Loan ${id} registered successfully for ${borrower}.`;
+                }
+
+                async createLoanAgreement(loanId) {
+                    await simulateNetworkDelay(700);
+                    const loan = ledger.get(loanId);
+                    if (!loan) {
+                        throw new Error(`Loan with ID ${loanId} not found.`);
+                    }
+                    if (loan.status !== 'Registered') {
+                        throw new Error(`Loan ${loanId} is not in 'Registered' state. Current state: ${loan.status}`);
+                    }
+                    loan.status = 'AgreementCreated';
+                    ledger.set(loanId, loan);
+                    return `Loan agreement for ${loanId} created successfully.`;
+                }
+
+                async updateLoanAmount(loanId, newAmount) {
+                    await simulateNetworkDelay(800);
+                    const loan = ledger.get(loanId);
+                    if (!loan) {
+                        throw new Error(`Loan with ID ${loanId} not found.`);
+                    }
+                    loan.amount = newAmount;
+                    ledger.set(loanId, loan);
+                    return `Loan amount for ${loanId} updated to ${newAmount} successfully.`;
+                }
+
+                async getLoanById(loanId) {
+                    await simulateNetworkDelay(400);
+                    const loan = ledger.get(loanId);
+                    if (!loan) {
+                        throw new Error(`Loan with ID ${loanId} not found.`);
+                    }
+                    return JSON.stringify(loan, null, 2);
+                }
+            }
+            const fabricService = new FabricService();
+
+            // --- State and Constants ---
+            let logs = [];
+            const LogType = {
+                INFO: 'INFO',
+                SUCCESS: 'SUCCESS',
+                ERROR: 'ERROR',
+                WARN: 'WARN',
+            };
+
+            // --- DOM Element References ---
+            const initLedgerBtn = document.getElementById('initLedgerBtn');
+            const registerForm = document.getElementById('registerForm');
+            const registerLoanBtn = document.getElementById('registerLoanBtn');
+            const createAgreementBtn = document.getElementById('createAgreementBtn');
+            const updateAmountBtn = document.getElementById('updateAmountBtn');
+            const getLoanBtn = document.getElementById('getLoanBtn');
+
+            const logPanel = document.getElementById('logPanel');
+            const queryResultContainer = document.getElementById('queryResultContainer');
+            const queryResultPre = document.getElementById('queryResult');
+
+            // --- UI Rendering Functions ---
+            function renderLogs() {
+                if (logs.length === 0) {
+                    logPanel.innerHTML = `<p class="text-brand-text-secondary">No transactions yet. Click a button to begin.</p>`;
+                    return;
+                }
+
+                const logTypeClasses = {
+                    [LogType.INFO]: 'text-blue-400',
+                    [LogType.SUCCESS]: 'text-green-400',
+                    [LogType.ERROR]: 'text-red-400',
+                    [LogType.WARN]: 'text-yellow-400',
+                };
+                
+                const logsHtml = logs.map(log => `
+                    <div class="flex">
+                        <span class="text-brand-text-secondary mr-2">${log.timestamp}</span>
+                        <span class="${logTypeClasses[log.type]} font-bold mr-2">[${log.type}]</span>
+                        <p class="flex-1 whitespace-pre-wrap">${log.message}</p>
+                    </div>
+                `).join('');
+                
+                logPanel.innerHTML = logsHtml;
+            }
+
+            function renderQueryResult(result) {
+                if (result) {
+                    queryResultPre.textContent = result;
+                    queryResultContainer.style.display = 'block';
+                } else {
+                    queryResultPre.textContent = '';
+                    queryResultContainer.style.display = 'none';
+                }
+            }
+
+            // --- UI Helper Functions ---
+            function getSpinnerSVG() {
+                return `<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>`;
+            }
+
+            function toggleButtonLoading(button, isLoading) {
+                button.disabled = isLoading;
+                if (isLoading) {
+                    button.dataset.originalContent = button.innerHTML;
+                    button.innerHTML = getSpinnerSVG() + button.dataset.originalContent;
+                } else if (button.dataset.originalContent) {
+                    button.innerHTML = button.dataset.originalContent;
+                }
+            }
+            
+            function escapeHtml(unsafe) {
+                return unsafe
+                     .replace(/&/g, "&amp;")
+                     .replace(/</g, "&lt;")
+                     .replace(/>/g, "&gt;")
+                     .replace(/"/g, "&quot;")
+                     .replace(/'/g, "&#039;");
+            }
+
+            function addLog(message, type) {
+                const timestamp = new Date().toLocaleTimeString();
+                logs.unshift({ type, message: escapeHtml(message), timestamp });
+                renderLogs();
+            }
+
+            // --- Core Action Handler ---
+            async function handleAction(action, args, button, successMessagePrefix = '') {
+                toggleButtonLoading(button, true);
+                try {
+                    const result = await action(...args);
+                    addLog(`${successMessagePrefix}${result}`, LogType.SUCCESS);
+                    return result;
+                } catch (error) {
+                    addLog(error.message, LogType.ERROR);
+                    return null;
+                } finally {
+                    toggleButtonLoading(button, false);
+                }
+            }
+
+            // --- Event Listeners ---
+            initLedgerBtn.addEventListener('click', () => {
+                handleAction(fabricService.initLedger.bind(fabricService), [], initLedgerBtn);
+            });
+
+            registerForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const id = document.getElementById('registerId').value;
+                const amount = document.getElementById('registerAmount').value;
+                const borrower = document.getElementById('registerBorrower').value;
+                const lender = document.getElementById('registerLender').value;
+                const interestRate = document.getElementById('registerInterestRate').value;
+                handleAction(fabricService.registerLoan.bind(fabricService), [id, amount, borrower, lender, interestRate], registerLoanBtn);
+            });
+            
+            createAgreementBtn.addEventListener('click', () => {
+                const agreementId = document.getElementById('agreementId').value;
+                handleAction(fabricService.createLoanAgreement.bind(fabricService), [agreementId], createAgreementBtn);
+            });
+            
+            updateAmountBtn.addEventListener('click', () => {
+                const updateId = document.getElementById('updateId').value;
+                const updateAmount = document.getElementById('updateAmount').value;
+                handleAction(fabricService.updateLoanAmount.bind(fabricService), [updateId, updateAmount], updateAmountBtn);
+            });
+
+            getLoanBtn.addEventListener('click', async () => {
+                const queryId = document.getElementById('queryId').value;
+                renderQueryResult(null);
+                const result = await handleAction(fabricService.getLoanById.bind(fabricService), [queryId], getLoanBtn);
+                if (result) {
+                    renderQueryResult(result);
+                }
+            });
+
+        })();
+    </script>
+</body>
+</html>
