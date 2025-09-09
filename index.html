@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,13 +15,12 @@
       body {
         font-family: 'Inter', sans-serif;
         background-color: #020617; /* Fallback color */
+        /* A subtle, modern gradient background */
         background-image: 
-          linear-gradient(rgba(2, 6, 23, 0.95), rgba(2, 6, 23, 0.95)),
-          url('https://i.imgur.com/G4h1m8f.jpeg'); /* High-tech background */
+          radial-gradient(at 20% 20%, hsla(190, 89%, 35%, 0.15) 0px, transparent 50%),
+          radial-gradient(at 80% 80%, hsla(242, 70%, 46%, 0.15) 0px, transparent 50%);
+        background-attachment: fixed;
         background-size: cover;
-        background-position: center center;
-        background-attachment: fixed; /* Parallax effect */
-        background-repeat: no-repeat;
       }
       .glassmorphism {
         background: rgba(15, 23, 42, 0.5);
@@ -84,6 +84,13 @@
         }
       }
     </script>
+<script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.1.1/"
+  }
+}
+</script>
 </head>
 <body class="bg-brand-bg text-brand-text-primary antialiased">
 
@@ -243,36 +250,36 @@
                     await simulateNetworkDelay();
                     ledger.clear();
                     const initialLoan = {
-                        id: 'L001', amount: '10000', borrower: 'Satoshi', lender: 'Hyperbank', interestRate: '5.0', status: 'Pending',
+                        id: 'L001', amount: '10000', borrower: 'Satoshi', lender: 'Hyperbank', interestRate: '5.0', status: 'Draft',
                     };
                     ledger.set(initialLoan.id, initialLoan);
-                    return 'Ledger initialized with one pending loan (L001).';
+                    return 'Ledger initialized with one draft loan (L001).';
                 }
 
                 async registerLoan(id, amount, borrower, lender, interestRate) {
                     await simulateNetworkDelay();
                     if (!id || !amount || !borrower || !lender || !interestRate) throw new Error('All fields are required for loan registration.');
                     if (ledger.has(id)) throw new Error(`Loan with ID ${id} already exists.`);
-                    const newLoan = { id, amount, borrower, lender, interestRate, status: 'Pending' };
+                    const newLoan = { id, amount, borrower, lender, interestRate, status: 'Draft' };
                     ledger.set(id, newLoan);
-                    return `Loan ${id} registered successfully for ${borrower}. Status: Pending.`;
+                    return `Loan ${id} registered successfully for ${borrower}. Status: Draft.`;
                 }
                 
                 async approveLoan(loanId) {
-                    await simulateNetworkDelay(600);
+                    await simulateNetworkDelay(700);
                     const loan = ledger.get(loanId);
                     if (!loan) throw new Error(`Loan with ID ${loanId} not found.`);
-                    if (loan.status !== 'Pending') throw new Error(`Loan ${loanId} is not in 'Pending' state.`);
-                    loan.status = 'Approved';
+                    if (loan.status !== 'Draft') throw new Error(`Loan ${loanId} is not in 'Draft' state.`);
+                    loan.status = 'Agreed';
                     ledger.set(loanId, loan);
-                    return `Loan ${loanId} has been approved.`;
+                    return `Loan ${loanId} approved and agreement created. Status is now 'Agreed'.`;
                 }
 
                 async rejectLoan(loanId) {
                     await simulateNetworkDelay(600);
                     const loan = ledger.get(loanId);
                     if (!loan) throw new Error(`Loan with ID ${loanId} not found.`);
-                    if (loan.status !== 'Pending') throw new Error(`Loan ${loanId} is not in 'Pending' state.`);
+                    if (loan.status !== 'Draft') throw new Error(`Loan ${loanId} is not in 'Draft' state.`);
                     loan.status = 'Rejected';
                     ledger.set(loanId, loan);
                     return `Loan ${loanId} has been rejected.`;
@@ -346,9 +353,10 @@
             }
 
             const statusStyles = {
-                Pending: 'bg-brand-warning/10 text-brand-warning border-brand-warning/20',
+                Draft: 'bg-brand-warning/10 text-brand-warning border-brand-warning/20',
                 Approved: 'bg-brand-success/10 text-brand-success border-brand-success/20',
                 Rejected: 'bg-brand-danger/10 text-brand-danger border-brand-danger/20',
+                Agreed: 'bg-brand-info/10 text-brand-info border-brand-info/20',
             };
 
             async function renderLoansTable() {
@@ -360,16 +368,17 @@
 
                 loansTableBody.innerHTML = loans.map(loan => {
                     const isLenderView = currentView === 'lender';
-                    const isPending = loan.status === 'Pending';
-                    const actionsCell = isLenderView ? `
-                        <td class="px-6 py-4 text-center">
-                            ${isPending ? `
-                            <div class="flex gap-2 justify-center">
-                                <button data-loan-id="${loan.id}" class="approve-btn px-2 py-1 text-xs font-medium rounded-md bg-brand-success text-white hover:bg-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-colors">Approve</button>
-                                <button data-loan-id="${loan.id}" class="reject-btn px-2 py-1 text-xs font-medium rounded-md bg-brand-danger text-white hover:bg-rose-600 focus:outline-none focus:ring-2 focus:ring-rose-500 transition-colors">Reject</button>
-                            </div>
-                            ` : `<span class="text-xs text-brand-text-secondary italic">Processed</span>`}
-                        </td>` : '';
+                    let actionsContent = `<span class="text-xs text-brand-text-secondary italic">Processed</span>`;
+
+                    if (loan.status === 'Draft') {
+                        actionsContent = `
+                        <div class="flex gap-2 justify-center">
+                            <button data-loan-id="${loan.id}" class="approve-btn px-2 py-1 text-xs font-medium rounded-md bg-brand-success text-white hover:bg-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-colors">Approve</button>
+                            <button data-loan-id="${loan.id}" class="reject-btn px-2 py-1 text-xs font-medium rounded-md bg-brand-danger text-white hover:bg-rose-600 focus:outline-none focus:ring-2 focus:ring-rose-500 transition-colors">Reject</button>
+                        </div>`;
+                    }
+
+                    const actionsCell = isLenderView ? `<td class="px-6 py-4 text-center">${actionsContent}</td>` : '';
 
                     return `
                         <tr class="border-b border-brand-border hover:bg-white/5 transition-colors duration-200">
