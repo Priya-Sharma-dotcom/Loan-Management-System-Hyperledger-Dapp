@@ -31,10 +31,10 @@ public class ClientApp {
         try (Gateway gateway = builder.connect()) {
 
             // Get the network channel
-            Network network = gateway.getNetwork("mychannel");  // fixed typo from "mychanel"
+            Network network = gateway.getNetwork("mychannel");  
 
             // Get the smart contract
-            Contract contract = network.getContract("LoanContract");  // Contract name must match what's deployed
+            Contract contract = network.getContract("LoanContract");  
 
             // Call chaincode transactions
             contract.submitTransaction("initLedger");
