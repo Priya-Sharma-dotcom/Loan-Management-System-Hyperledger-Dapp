@@ -88,6 +88,18 @@ byte[] result = contract.evaluateTransaction("getLoanById", "L002");
 System.out.println(new String(result));
 ```
 
+Full flow:
+
+Browser → makes a POST with JSON body (payload).
+
+Server (Express) → receives JSON, extracts values.
+
+Server → calls Fabric smart contract method (registerLoan).
+
+Server → sends back JSON success/error.
+
+Browser → displays response in <pre id="registerResult">.
+
 ---
 
 ## 📚 License
