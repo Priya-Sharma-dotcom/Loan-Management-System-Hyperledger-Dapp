@@ -127,7 +127,7 @@
     };
     await callAPI(`${API}/registerLoan`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json" },//It tells the server what kind of data is in the request body.
       body: JSON.stringify(payload),
     }, "registerResult");
   }
