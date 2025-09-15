@@ -88,52 +88,66 @@ byte[] result = contract.evaluateTransaction("getLoanById", "L002");
 System.out.println(new String(result));
 ```
 
-Full flow:
+
+
 ---
 
-1.Browser → makes a POST with JSON body (payload).
+## Full Flow
 
-const API = "http://localhost:3000";  // server base URL
+1. **Browser → makes a POST with JSON body (payload)**
+
+```javascript
+const API = "http://localhost:3000"; // server base URL
 
 await callAPI(`${API}/registerLoan`, { method: "POST", ... });
+```
 
-${API}/registerLoan → full URL: http://localhost:3000/registerLoan
+* `${API}/registerLoan` → full URL: `http://localhost:3000/registerLoan`
+* This calls the server at that endpoint. The server runs the **Express route handler**, which is the API logic.
 
-This calls the server at that endpoint. The server runs the Express route handler, which is the API logic.
+---
 
-2.Server (Express) → receives JSON, extracts values. app.post("/registerLoan", ...) = a RESTful endpoint for creating a loan.
+2. **Server (Express) → receives JSON, extracts values**
 
-The full REST API = all the endpoints together (register, get, updateAmount, updateRate).
+```javascript
+app.post("/registerLoan", ...)  // RESTful endpoint for creating a loan
+```
 
-API = the URL you call.
+* The **full REST API** = all endpoints together (`register`, `get`, `updateAmount`, `updateRate`).
+* **API** = the URL you call.
+* **REST** = style/conventions your API uses (HTTP verbs, endpoints, JSON responses).
+* REST API = the “rules” or “endpoints” that allow programs to talk to the server.
+* Together: your frontend calls a RESTful API at `http://localhost:3000`, which in turn talks to Fabric.
 
-REST = the style/conventions your API uses (HTTP verbs, endpoints, JSON responses).REST API is the “rules” or “endpoints” that allow other programs to talk to the server.
+---
 
-Together: your frontend calls a RESTful API at http://localhost:3000 which in turn talks to Fabric.
+3. **Server → calls Fabric smart contract method (`registerLoan`)**
+
+---
+
+4. **Server → sends back JSON success/error**
+
+---
+
+5. **Browser → displays response in `<pre id="registerResult">`**
+
+---
+
+### 🔑 Key Insight
+
+* **Server**: the program running at `localhost:3000`
+* **API**: the routes/endpoints that the server exposes (`/registerLoan`, `/loan/:id`, etc.)
+* **URL**: how the frontend finds the API (`http://localhost:3000/registerLoan`)
+
+**Important:**
+
+* Server ≠ API, but the server **hosts the API**
+* API ≠ URL, but the URL is **how you access the API**
+* So when you call `fetch(${API}/registerLoan)`, you’re using the **API that your server exposes**
+
+---
 
 
-
-3.Server → calls Fabric smart contract method (registerLoan).
-
-4.Server → sends back JSON success/error.
-
-5.Browser → displays response in pre id="registerResult".
-
-
-🔑 Key insight
-
-
-Server: the program running at localhost:3000
-
-API: the routes/endpoints that the server exposes (/registerLoan, /loan/:id, etc.)
-
-URL: how the frontend finds the API (http://localhost:3000/registerLoan)
-
-Server ≠ API, but the server hosts the API.
-
-API ≠ URL, but the URL is how you access the API.
-
-So when you call fetch(${API}/registerLoan), you’re using the API that your server exposes.
 
 ---
 
