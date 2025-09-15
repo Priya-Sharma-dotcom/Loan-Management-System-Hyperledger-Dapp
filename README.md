@@ -91,25 +91,33 @@ System.out.println(new String(result));
 Full flow:
 ---
 
-Browser → makes a POST with JSON body (payload).
+1.Browser → makes a POST with JSON body (payload).
 
 const API = "http://localhost:3000";  // server base URL
+
 await callAPI(`${API}/registerLoan`, { method: "POST", ... });
+
 ${API}/registerLoan → full URL: http://localhost:3000/registerLoan
+
 This calls the server at that endpoint. The server runs the Express route handler, which is the API logic.
 
-Server (Express) → receives JSON, extracts values. app.post("/registerLoan", ...) = a RESTful endpoint for creating a loan.
+2.Server (Express) → receives JSON, extracts values. app.post("/registerLoan", ...) = a RESTful endpoint for creating a loan.
 
 The full REST API = all the endpoints together (register, get, updateAmount, updateRate).
+
 API = the URL you call.
+
 REST = the style/conventions your API uses (HTTP verbs, endpoints, JSON responses).REST API is the “rules” or “endpoints” that allow other programs to talk to the server.
+
 Together: your frontend calls a RESTful API at http://localhost:3000 which in turn talks to Fabric.
 
-Server → calls Fabric smart contract method (registerLoan).
 
-Server → sends back JSON success/error.
 
-Browser → displays response in pre id="registerResult".
+3.Server → calls Fabric smart contract method (registerLoan).
+
+4.Server → sends back JSON success/error.
+
+5.Browser → displays response in pre id="registerResult".
 
 
 🔑 Key insight
