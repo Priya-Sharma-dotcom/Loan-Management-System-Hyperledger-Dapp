@@ -65,7 +65,7 @@ app.post("/initLedger", async (req, res) => {  //REST API endpoint
   try {
     const contract = await getContract();
     await contract.submitTransaction("initLedger");
-    res.json({ message: "Ledger initialized successfully" });
+    res.json({ message: "Ledger initialized successfully" }); //response in json
   } catch (error) {
     res.status(500).json({ error: error.message }); //the human-readable error text (e.g. "Contract not found").
   }
