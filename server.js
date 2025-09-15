@@ -38,7 +38,7 @@ function safeResponse(result, successMsg) {
 // === Get contract instance ===
 async function getContract() {
   const ccp = JSON.parse(fs.readFileSync(ccpPath, "utf8"));
-  const walletPath = path.join(__dirname, "wallet"); // FIXED: path instead of Paths
+  const walletPath = path.join(__dirname, "wallet");
   const wallet = await Wallets.newFileSystemWallet(walletPath);
 
   const gateway = new Gateway();
