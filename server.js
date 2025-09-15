@@ -1,4 +1,5 @@
 const express = require("express");
+const yaml= require("js-yaml");
 
 const cors = require("cors"); //CORS = Cross-Origin Resource Sharing.
 //By default, browsers block a website (say, http://localhost:5500) from calling a server on a different port (http://localhost:3000).
@@ -25,7 +26,7 @@ const ccpPath = path.resolve(
   "organizations",
   "peerOrganizations",
   "org1.example.com",
-  "connection-org1.yaml" //(convert to json)
+  "connection-org1.yaml" 
 );
 
 // === Helper to wrap chaincode responses safely ===
@@ -43,7 +44,7 @@ function safeResponse(result, successMsg) {
 
 // === Get contract instance ===
 async function getContract() {
-  const ccp = JSON.parse(fs.readFileSync(ccpPath, "utf8"));
+  const ccp = yaml.load(fs.readFileSync(ccpPath, "utf8"));
   const wallet = await Wallets.newFileSystemWallet("wallet");
 
   const gateway = new Gateway();
