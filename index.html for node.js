@@ -51,7 +51,7 @@
   <div class="section">
     <h2>Init Ledger</h2>
     <button onclick="initLedger()">Initialize</button>
-    <pre id="initResult"></pre>
+    <pre id="initResult"></pre>    <!--output or response from server-->
   </div>
 
   <div class="section">
