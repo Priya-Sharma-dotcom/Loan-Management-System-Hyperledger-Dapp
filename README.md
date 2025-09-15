@@ -92,12 +92,14 @@ Full flow:
 ---
 
 Browser → makes a POST with JSON body (payload).
+
 const API = "http://localhost:3000";  // server base URL
 await callAPI(`${API}/registerLoan`, { method: "POST", ... });
 ${API}/registerLoan → full URL: http://localhost:3000/registerLoan
 This calls the server at that endpoint. The server runs the Express route handler, which is the API logic.
 
 Server (Express) → receives JSON, extracts values. app.post("/registerLoan", ...) = a RESTful endpoint for creating a loan.
+
 The full REST API = all the endpoints together (register, get, updateAmount, updateRate).
 API = the URL you call.
 REST = the style/conventions your API uses (HTTP verbs, endpoints, JSON responses).REST API is the “rules” or “endpoints” that allow other programs to talk to the server.
@@ -114,7 +116,9 @@ Browser → displays response in pre id="registerResult".
 
 
 Server: the program running at localhost:3000
+
 API: the routes/endpoints that the server exposes (/registerLoan, /loan/:id, etc.)
+
 URL: how the frontend finds the API (http://localhost:3000/registerLoan)
 
 Server ≠ API, but the server hosts the API.
