@@ -31,7 +31,7 @@ const ccpPath = path.resolve(
 // === Helper to wrap chaincode responses safely ===
 function safeResponse(result, successMsg) {
   if (!result || result.length === 0) {
-    return { message: successMsg };
+    return { message: successMsg }; //Empty result ≠ failure.It just means “this transaction doesn’t produce output.”
   }
   const str = result.toString();
   try {
@@ -44,8 +44,7 @@ function safeResponse(result, successMsg) {
 // === Get contract instance ===
 async function getContract() {
   const ccp = JSON.parse(fs.readFileSync(ccpPath, "utf8"));
-  const walletPath = path.join(__dirname, "wallet");
-  const wallet = await Wallets.newFileSystemWallet(walletPath);
+  const wallet = await Wallets.newFileSystemWallet("wallet");
 
   const gateway = new Gateway();
   await gateway.connect(ccp, {
