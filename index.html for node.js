@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Loan Management DApp</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com"> //security handshake = trust + encryption setup before real data flows.
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
   <style>
