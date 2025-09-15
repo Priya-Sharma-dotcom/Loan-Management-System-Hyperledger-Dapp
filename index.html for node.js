@@ -96,90 +96,69 @@
   </div>
 
   <script>
-    const API = "http://localhost:3000";
+  const API = "http://localhost:3000";
 
-    async function initLedger() {
-      try {
-        const res = await fetch(`${API}/initLedger`, { method: "POST" });
-        document.getElementById("initResult").textContent = await res.text();
-      } catch (err) {
-        document.getElementById("initResult").textContent = err;
-      }
+  async function callAPI(url, options, outputId) {
+    try {
+      const res = await fetch(url, options);
+      const data = await res.json();
+      document.getElementById(outputId).textContent = JSON.stringify(data, null, 2);
+    } catch (err) {
+      document.getElementById(outputId).textContent = err;
     }
+  }
 
-    async function registerLoan() {
-      const payload = {
-        id: document.getElementById("loanId").value,
-        amount: document.getElementById("amount").value,
-        borrower: document.getElementById("borrower").value,
-        lender: document.getElementById("lender").value,
-        rate: document.getElementById("rate").value,
-      };
-      try {
-        const res = await fetch(`${API}/registerLoan`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        });
-        document.getElementById("registerResult").textContent = await res.text();
-      } catch (err) {
-        document.getElementById("registerResult").textContent = err;
-      }
-    }
+  async function initLedger() {
+    await callAPI(`${API}/initLedger`, { method: "POST" }, "initResult");
+  }
 
-    async function createLoanAgreement() {
-      const payload = { id: document.getElementById("agreementId").value };
-      try {
-        const res = await fetch(`${API}/createLoanAgreement`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        });
-        document.getElementById("agreementResult").textContent = await res.text();
-      } catch (err) {
-        document.getElementById("agreementResult").textContent = err;
-      }
-    }
+  async function registerLoan() {
+    const payload = {
+      id: document.getElementById("loanId").value,
+      amount: document.getElementById("amount").value,
+      borrower: document.getElementById("borrower").value,
+      lender: document.getElementById("lender").value,
+      rate: document.getElementById("rate").value,
+    };
+    await callAPI(`${API}/registerLoan`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    }, "registerResult");
+  }
 
-    async function updateLoanAmount() {
-      const id = document.getElementById("updateAmountId").value;
-      const payload = { newAmount: document.getElementById("newAmount").value };
-      try {
-        const res = await fetch(`${API}/updateLoanAmount/${id}`, {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        });
-        document.getElementById("updateAmountResult").textContent = await res.text();
-      } catch (err) {
-        document.getElementById("updateAmountResult").textContent = err;
-      }
-    }
+  async function createLoanAgreement() {
+    const payload = { id: document.getElementById("agreementId").value };
+    await callAPI(`${API}/createLoanAgreement`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    }, "agreementResult");
+  }
 
-    async function updateLoanRate() {
-      const id = document.getElementById("updateRateId").value;
-      const payload = { newRate: document.getElementById("newRate").value };
-      try {
-        const res = await fetch(`${API}/updateLoanRate/${id}`, {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        });
-        document.getElementById("updateRateResult").textContent = await res.text();
-      } catch (err) {
-        document.getElementById("updateRateResult").textContent = err;
-      }
-    }
+  async function updateLoanAmount() {
+    const id = document.getElementById("updateAmountId").value;
+    const payload = { newAmount: document.getElementById("newAmount").value };
+    await callAPI(`${API}/updateLoanAmount/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    }, "updateAmountResult");
+  }
 
-    async function getLoan() {
-      const id = document.getElementById("getLoanId").value;
-      try {
-        const res = await fetch(`${API}/loan/${id}`);
-        document.getElementById("loanResult").textContent = await res.text();
-      } catch (err) {
-        document.getElementById("loanResult").textContent = err;
-      }
-    }
-  </script>
-</body>
-</html>
+  async function updateLoanRate() {
+    const id = document.getElementById("updateRateId").value;
+    const payload = { newRate: document.getElementById("newRate").value };
+    await callAPI(`${API}/updateLoanRate/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    }, "updateRateResult");
+  }
+
+  async function getLoan() {
+    const id = document.getElementById("getLoanId").value;
+    await callAPI(`${API}/loan/${id}`, {}, "loanResult");
+  }
+</script>
+  </body>
