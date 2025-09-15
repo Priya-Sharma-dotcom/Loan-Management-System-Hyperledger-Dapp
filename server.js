@@ -18,13 +18,12 @@ const ccpPath = path.resolve(
   "organizations",
   "peerOrganizations",
   "org1.example.com",
-  "connection-org1.json"
+  "connection-org1.yaml"
 );
 
 async function getContract() {
   const ccp = JSON.parse(fs.readFileSync(ccpPath, "utf8"));
-  const walletPath = path.join(process.cwd(), "wallet");
-  const wallet = await Wallets.newFileSystemWallet(walletPath);
+  const wallet = await Wallets.newFileSystemWallet(Paths.get("wallet");
 
   const gateway = new Gateway();
   await gateway.connect(ccp, {
