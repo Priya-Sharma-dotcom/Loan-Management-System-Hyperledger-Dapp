@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 
 // Connection profile path
 const ccpPath = path.resolve(
-  __dirname,
+  process.cwd(),
   "..",
   "..",
   "fabric-samples",
