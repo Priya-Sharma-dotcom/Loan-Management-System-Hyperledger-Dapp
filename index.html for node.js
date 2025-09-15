@@ -136,7 +136,7 @@
     await callAPI(`${API}/initLedger`, { method: "POST" }, "initResult");
   }
 
-  // Register new loan
+    // Register new loan
   async function registerLoan() {
     const payload = {
       id: document.getElementById("loanId").value,
@@ -178,7 +178,6 @@
 
 
   // Update loan interest rate//
-
   async function updateLoanRate() {
     const id = document.getElementById("updateRateId").value;
     const payload = { newRate: document.getElementById("newRate").value };
@@ -191,7 +190,6 @@
   }
 
   // Fetch loan details by ID
-
   async function getLoan() {
     const id = document.getElementById("getLoanId").value;
 
