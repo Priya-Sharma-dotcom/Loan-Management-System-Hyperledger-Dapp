@@ -4,7 +4,7 @@ const cors = require("cors"); //CORS = Cross-Origin Resource Sharing.
 //By default, browsers block a website (say, http://localhost:5500) from calling a server on a different port (http://localhost:3000).
 //cors() tells the server: “It’s okay for other origins (like your frontend) to make requests here.”
 
-const bodyParser = require("body-parser"); //Helps Express read JSON from requests (so we can do req.body as java object).
+const bodyParser = require("body-parser"); //converts JSON Req to Java Object (so we can do req.body as java object).
 
 const { Gateway, Wallets } = require("fabric-network"); //Import objects from Hyperledger Fabric SDK:Gateway: connects your app to the blockchain network.Wallets: manages user identities (like appUser).
 
