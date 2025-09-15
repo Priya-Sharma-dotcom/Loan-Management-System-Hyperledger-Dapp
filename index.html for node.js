@@ -14,6 +14,9 @@
     h1, h2 {
       color: #4cafef;
     }
+    h1 {
+      margin-bottom: 40px;
+    }
     label {
       display: block;
       margin-top: 10px;
@@ -28,6 +31,7 @@
       background: #4cafef;
       color: white;
       cursor: pointer;
+      margin-top: 30px;
     }
     button:hover {
       background: #379bd1;
