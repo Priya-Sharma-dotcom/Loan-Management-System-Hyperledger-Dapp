@@ -125,7 +125,7 @@
       lender: document.getElementById("lender").value,
       rate: document.getElementById("rate").value,
     };
-    await callAPI(`${API}/registerLoan`, { //${API} is a variable ("http://localhost:3000").registerLoan is the specific endpoint on that server.//
+    await callAPI(`${API}/registerLoan`, { //${API} is a variable ("http://localhost:3000")./registerLoan is the specific endpoint on that server.//
       method: "POST",
       headers: { "Content-Type": "application/json" },//It tells the server what kind of data is in the request body.
       body: JSON.stringify(payload),
