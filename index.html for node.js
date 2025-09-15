@@ -96,11 +96,16 @@
   </div>
 
   <script>
-  const API = "http://localhost:3000";
+  const API = "http://localhost:3000";//server address
+
+//Function calls an API, waits for the response, turns it into JSON string , takes that string and puts it into the HTML element as visible text.
+//url → the API endpoint (e.g. "https://api.example.com/users")
+//options → HTTP settings (method, headers, body, etc.).
+//outputId → the id of an HTML element where you’ll show the result (passed in when you call the function).
 
   async function callAPI(url, options, outputId) {
     try {
-      const res = await fetch(url, options);
+      const res = await fetch(url, options); //built-in JS function to make HTTP requests. Returns a Response object (promise).await pauses (background wait).browser stays responsive.
       const data = await res.json();
       document.getElementById(outputId).textContent = JSON.stringify(data, null, 2);
     } catch (err) {
