@@ -60,14 +60,14 @@ async function getContract() {
 
 // === API = Endpoints/Routes ===
 
-// Init Ledger
-app.post("/initLedger", async (req, res) => {
+// Init Ledger //When someone sends an HTTP POST request to http://localhost:3000/initLedger → run this function.
+app.post("/initLedger", async (req, res) => {  //REST API endpoint
   try {
     const contract = await getContract();
     await contract.submitTransaction("initLedger");
     res.json({ message: "Ledger initialized successfully" });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: error.message }); //the human-readable error text (e.g. "Contract not found").
   }
 });
 
