@@ -131,7 +131,7 @@
 
   /** === API Calls (frontend triggers) === */
 
-  // Initialize ledger
+  // Initialize ledger- triggers route /initLedger in server.js
   async function initLedger() {
     await callAPI(`${API}/initLedger`, { method: "POST" }, "initResult");
   }
