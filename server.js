@@ -74,7 +74,7 @@ app.post("/initLedger", async (req, res) => {  //REST API endpoint
 // Register Loan
 app.post("/registerLoan", async (req, res) => {
   try {
-    const { id, amount, borrower, lender, rate } = req.body;
+    const { id, amount, borrower, lender, rate } = req.body; //Reads input fields from req.body (JSON sent by frontend).
     const contract = await getContract();
     const result = await contract.submitTransaction(
       "registerLoan",
@@ -105,7 +105,7 @@ app.post("/createLoanAgreement", async (req, res) => {
 // Update Loan Amount
 app.put("/updateLoanAmount/:id", async (req, res) => {
   try {
-    const { id } = req.params;
+    const { id } = req.params; // ${id} in the URL → this is a path parameter.Example: /updateLoanAmount/LOAN123 → req.params.id = "LOAN123".
     const { newAmount } = req.body;
     const contract = await getContract();
     const result = await contract.submitTransaction(
@@ -142,7 +142,7 @@ app.get("/loan/:id", async (req, res) => {
     const { id } = req.params;
     const contract = await getContract();
     const result = await contract.evaluateTransaction("getLoanById", id);
-    res.json(JSON.parse(result.toString())); // always JSON here
+    res.json(JSON.parse(result.toString())); // Returns parsed JSON directly
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
