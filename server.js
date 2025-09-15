@@ -9,7 +9,7 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-// Connection profile
+// Connection profile path
 const ccpPath = path.resolve(
   __dirname,
   "..",
@@ -22,7 +22,7 @@ const ccpPath = path.resolve(
   "connection-org1.yaml"
 );
 
-// Helper to wrap chaincode responses safely
+// === Helper to wrap chaincode responses safely ===
 function safeResponse(result, successMsg) {
   if (!result || result.length === 0) {
     return { message: successMsg };
@@ -35,10 +35,10 @@ function safeResponse(result, successMsg) {
   }
 }
 
-// Get contract instance
+// === Get contract instance ===
 async function getContract() {
   const ccp = JSON.parse(fs.readFileSync(ccpPath, "utf8"));
-  const walletPath = Paths.get("wallet");
+  const walletPath = path.join(__dirname, "wallet"); // FIXED: path instead of Paths
   const wallet = await Wallets.newFileSystemWallet(walletPath);
 
   const gateway = new Gateway();
@@ -49,8 +49,7 @@ async function getContract() {
   });
 
   const network = await gateway.getNetwork("mychannel");
-  const contract = network.getContract("LoanContract");
-  return contract;
+  return network.getContract("LoanContract");
 }
 
 // === Routes ===
@@ -137,12 +136,13 @@ app.get("/loan/:id", async (req, res) => {
     const { id } = req.params;
     const contract = await getContract();
     const result = await contract.evaluateTransaction("getLoanById", id);
-    res.json(JSON.parse(result.toString())); // this should always return JSON
+    res.json(JSON.parse(result.toString())); // always JSON here
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
+// Start server
 const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
