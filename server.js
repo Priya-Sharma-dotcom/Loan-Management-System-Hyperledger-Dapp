@@ -9,6 +9,7 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+// Connection profile
 const ccpPath = path.resolve(
   __dirname,
   "..",
@@ -21,9 +22,24 @@ const ccpPath = path.resolve(
   "connection-org1.yaml"
 );
 
+// Helper to wrap chaincode responses safely
+function safeResponse(result, successMsg) {
+  if (!result || result.length === 0) {
+    return { message: successMsg };
+  }
+  const str = result.toString();
+  try {
+    return JSON.parse(str);
+  } catch {
+    return { message: successMsg, data: str };
+  }
+}
+
+// Get contract instance
 async function getContract() {
   const ccp = JSON.parse(fs.readFileSync(ccpPath, "utf8"));
-  const wallet = await Wallets.newFileSystemWallet(Paths.get("wallet");
+  const walletPath = Paths.get("wallet");
+  const wallet = await Wallets.newFileSystemWallet(walletPath);
 
   const gateway = new Gateway();
   await gateway.connect(ccp, {
@@ -36,6 +52,8 @@ async function getContract() {
   const contract = network.getContract("LoanContract");
   return contract;
 }
+
+// === Routes ===
 
 // Init Ledger
 app.post("/initLedger", async (req, res) => {
@@ -61,7 +79,7 @@ app.post("/registerLoan", async (req, res) => {
       lender,
       rate
     );
-    res.json(JSON.parse(result.toString()));
+    res.json(safeResponse(result, "Loan registered successfully"));
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -73,7 +91,7 @@ app.post("/createLoanAgreement", async (req, res) => {
     const { id } = req.body;
     const contract = await getContract();
     const result = await contract.submitTransaction("createLoanAgreement", id);
-    res.json(JSON.parse(result.toString()));
+    res.json(safeResponse(result, "Loan agreement created successfully"));
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -90,7 +108,7 @@ app.put("/updateLoanAmount/:id", async (req, res) => {
       id,
       newAmount
     );
-    res.json(JSON.parse(result.toString()));
+    res.json(safeResponse(result, "Loan amount updated successfully"));
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -107,7 +125,7 @@ app.put("/updateLoanRate/:id", async (req, res) => {
       id,
       newRate
     );
-    res.json(JSON.parse(result.toString()));
+    res.json(safeResponse(result, "Loan interest rate updated successfully"));
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -119,7 +137,7 @@ app.get("/loan/:id", async (req, res) => {
     const { id } = req.params;
     const contract = await getContract();
     const result = await contract.evaluateTransaction("getLoanById", id);
-    res.json(JSON.parse(result.toString()));
+    res.json(JSON.parse(result.toString())); // this should always return JSON
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
