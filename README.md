@@ -89,6 +89,7 @@ System.out.println(new String(result));
 ```
 
 Full flow:
+---
 
 Browser → makes a POST with JSON body (payload).
 
@@ -98,7 +99,8 @@ Server → calls Fabric smart contract method (registerLoan).
 
 Server → sends back JSON success/error.
 
-Browser → displays response in <pre id="registerResult">.
+Browser → displays response in pre id="registerResult".
+
 ---
 
 ## 📚 License
