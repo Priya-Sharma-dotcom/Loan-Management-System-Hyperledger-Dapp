@@ -58,7 +58,7 @@ async function getContract() {
   return network.getContract("LoanContract");
 }
 
-// === Routes ===
+// === API = Endpoints/Routes ===
 
 // Init Ledger
 app.post("/initLedger", async (req, res) => {
