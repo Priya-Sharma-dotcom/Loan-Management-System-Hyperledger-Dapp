@@ -25,7 +25,7 @@ const ccpPath = path.resolve(
   "organizations",
   "peerOrganizations",
   "org1.example.com",
-  "connection-org1.yaml"
+  "connection-org1.yaml" //(convert to json)
 );
 
 // === Helper to wrap chaincode responses safely ===
