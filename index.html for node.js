@@ -205,8 +205,8 @@
     const outputElement = document.getElementById(outputId);
     outputElement.textContent = 'Loading...';
     try {
-      const res = await fetch(url, options);
-      const data = await res.json();
+      const res = await fetch(url, options);    //fetch(url, options) — built-in JS function to make HTTP requests. Returns a Response object (promise).
+      const data = await res.json();     //parse the response body as JSON
       if (!res.ok) {
         throw new Error(data.message || 'An error occurred');
       }
