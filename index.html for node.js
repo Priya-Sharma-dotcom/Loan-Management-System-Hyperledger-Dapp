@@ -217,23 +217,43 @@
   }
 
   async function initLedger() {
-    await callAPI(`${API}/initLedger`, { method: "POST" }, "initResult");
+    await callAPI(`${API}/initLedger`, { method: "POST" }, "initResult");  //call an API endpoint http://localhost:3000/initLedger with a POST request. Output goes to initResult.
   }
 
   async function registerLoan() {
-    const payload = {
-      id: document.getElementById("loanId").value,
+    const payload = {                                       //payload is a plain JavaScript object containing those fields.
+      id: document.getElementById("loanId").value,          //Reads values from inputs using document.getElementById(...).value. .value returns a string. "Take whatever value the user typed into the loanId input box, and store it under the key id"
       amount: document.getElementById("amount").value,
       borrower: document.getElementById("borrower").value,
       lender: document.getElementById("lender").value,
       rate: document.getElementById("rate").value,
     };
+
+// this would produce a java object : 
+ // {id: "LN001",
+  //amount: "5000",
+  //borrower: "Alice",
+  //lender: "BankXYZ",
+  //rate: "7.5"}
+
+
     await callAPI(`${API}/registerLoan`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
+      headers: { "Content-Type": "application/json" },     //tells the server the body is JSON.
+      body: JSON.stringify(payload),                       //converts the object into a JSON string to send over HTTP.
     }, "registerResult");
   }
+//Converts the payload object into a JSON string:
+//{
+  //"id": "LN001",
+  //"amount": "5000",
+  //"borrower": "Alice",
+  //"lender": "BankXYZ",
+  //"rate": "7.5}
+
+//Sends that JSON string as the HTTP POST request body to the backend API at:
+//Sets the Content-Type header to "application/json" to let the server know it's receiving JSON.
+//When the server responds, it shows the result inside the <pre id="registerResult"></pre> block on the webpage.
 
   async function createLoanAgreement() {
     const payload = { id: document.getElementById("agreementId").value };
