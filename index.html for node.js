@@ -147,7 +147,7 @@
 
     <div class="section">
       <h2>Register Loan</h2>
-      <label for="loanId">Loan ID:</label>
+      <label for="loanId">Loan ID:</label>   <!-- with "for" attribute : if you click on the text “Loan ID:”, the browser automatically moves the cursor (focus) to the input box.-->
       <input id="loanId" />
       <label for="amount">Amount:</label>
       <input id="amount" />
