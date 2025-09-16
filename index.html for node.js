@@ -202,17 +202,17 @@
   const API = "http://localhost:3000";
 
   async function callAPI(url, options, outputId) {
-    const outputElement = document.getElementById(outputId);
-    outputElement.textContent = 'Loading...';
+    const outputElement = document.getElementById(outputId);   //the id of the <pre> tag (or any element) where you want to show the result.
+    outputElement.textContent = 'Loading...';     //While the request is in progress, show the text "Loading..." so users know something is happenin
     try {
-      const res = await fetch(url, options);    //fetch(url, options) — built-in JS function to make HTTP requests. Returns a Response object (promise).
-      const data = await res.json();     //parse the response body as JSON
+      const res = await fetch(url, options);    //fetch(url, options) — built-in JS function to send HTTP requests to server. Returns a Response object (promise). await waits for the response to come back.
+      const data = await res.json();     //parse the response body as JSON to Java object "data"
       if (!res.ok) {
-        throw new Error(data.message || 'An error occurred');
+        throw new Error(data.message || 'An error occurred');      //manually throw an error.If the backend gave a message (e.g., "Loan ID already exists"), use it.Otherwise, just say: "An error occurred".
       }
-      outputElement.textContent = JSON.stringify(data, null, 2);
+      outputElement.textContent = JSON.stringify(data, null, 2);  //data: is already a JavaScript object (parsed from JSON by res.json()). JSON.stringify() turns that object into a text string in JSON format.The "null, 2" part means:null: don’t replace any keys.2: use 2 spaces to indent it (make it pretty).
     } catch (err) {
-      outputElement.textContent = `Error: ${err.message}`;
+      outputElement.textContent = `Error: ${err.message}`;      //If any error happens — in fetch(), res.json(), or throw new Error(...) — we catch it here.
     }
   }
 
