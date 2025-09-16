@@ -146,7 +146,47 @@ app.post("/registerLoan", ...)  // RESTful endpoint for creating a loan
 * So when you call `fetch(${API}/registerLoan)`, you’re using the **API that your server exposes**
 
 ---
+**1. ClientApp.java (Java SDK)**
 
+Uses the Fabric Java SDK (org.hyperledger.fabric.gateway.* classes).
+
+You run it as a standalone Java application (a console client).
+
+It connects directly to the Fabric network using a wallet + connection profile (connection-org1.yaml).
+
+You explicitly code transactions inside main() (e.g., initLedger, registerLoan, etc.).
+
+One-off execution: You run the program, it connects, sends transactions, prints results, exits.
+
+Think of it like: “I’m a Java program, I’ll talk to Fabric once, do my job, and leave.”
+
+**2. server.js (Node.js SDK)**
+
+Uses the Fabric Node.js SDK (fabric-network package).
+
+Instead of being a one-shot client, it sets up an Express.js web server.
+
+This server exposes REST APIs (/initLedger, /registerLoan, /loan/:id, etc.) so your frontend or external clients can call Fabric indirectly.
+
+Under the hood, it still:
+
+Loads wallet and connection profile.
+
+Connects to Gateway.
+
+Gets contract from LoanContract.
+
+Calls submitTransaction / evaluateTransaction.
+
+Think of it like: “I’m a permanent service running on port 3000. Anyone (e.g., browser frontend) can send me an HTTP request, and I’ll translate it into a Fabric transaction.”
+
+**3. Key Difference**
+
+Java client = direct blockchain app (user has to run it manually).
+
+Node server = blockchain middleware (runs continuously, exposes REST endpoints).
+
+Both use Fabric SDK → just different SDKs (Java vs Node.js).
 
 
 ---
