@@ -202,8 +202,8 @@
   const API = "http://localhost:3000";
 
   async function callAPI(url, options, outputId) {
-    const outputElement = document.getElementById(outputId);   //the id of the <pre> tag (or any element) where you want to show the result.
-    outputElement.textContent = 'Loading...';     //While the request is in progress, show the text "Loading..." so users know something is happenin
+    const outputElement = document.getElementById(outputId); // Get the element  //the id of the <pre> tag (or any element) where you want to show the result.
+    outputElement.textContent = 'Loading...'; // Set its visible content    //While the request is in progress, show the text "Loading..." so users know something is happenin
     try {
       const res = await fetch(url, options);    //fetch(url, options) — built-in JS function to send HTTP requests to server. Returns a Response object (promise). await waits for the response to come back.
       const data = await res.json();     //parse the response body as JSON to Java object "data"
