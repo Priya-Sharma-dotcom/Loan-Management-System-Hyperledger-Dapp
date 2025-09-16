@@ -142,7 +142,7 @@
     <div class="section">
       <h2>Init Ledger</h2>
       <button onclick="initLedger()">Initialize</button>
-      <pre id="initResult"></pre> <!Preformatted text.Preserves spaces, tabs, and line breaks exactly as written.>
+      <pre id="initResult"></pre> <!--Preformatted text.Preserves spaces, tabs, and line breaks exactly as written.-->
     </div>
 
     <div class="section">
