@@ -1,3 +1,5 @@
+//The API is the collection of routes (endpoints) handled by Express (like /registerLoan, /getLoanById/:id, etc.)
+
 const express = require("express");
 const yaml= require("js-yaml");
 
@@ -12,7 +14,7 @@ const { Gateway, Wallets } = require("fabric-network"); //Import objects from Hy
 const path = require("path"); //Node.js module to work with file paths (safe across OS).
 const fs = require("fs"); //Node.js module to read/write files.
 
-const app = express(); //creates express application
+const app = express(); //creates express application= instance of express web server
 app.use(cors());
 app.use(bodyParser.json());
 
@@ -72,7 +74,7 @@ app.post("/initLedger", async (req, res) => {  //REST API endpoint
 });
 
 // Register Loan
-app.post("/registerLoan", async (req, res) => {
+app.post("/registerLoan", async (req, res) => {   //ROUTE HANDLER=It handles HTTP POST requests to the URL ROUTE /registerLoan.It defines what should happen when that endpoint is called.
   try {
     const { id, amount, borrower, lender, rate } = req.body; //Reads input fields from req.body (JSON sent by frontend).
     const contract = await getContract();
