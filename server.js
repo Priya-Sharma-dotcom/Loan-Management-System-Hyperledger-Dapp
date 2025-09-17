@@ -37,9 +37,9 @@ function safeResponse(result, successMsg) {
     return { message: successMsg }; //Empty result ≠ failure.It just means “this transaction doesn’t produce output like POST ”
   }
   const str = result.toString();           //If result exists, convert it to a string.Hyperledger Fabric often returns a Buffer, so this ensures it's readable (e.g., from binary to text).
-  try {
+  try {                                //Try converting string to JS object
     return JSON.parse(str);                //if result is JSON, convert JSON String to Java Object as When Hyperledger Fabric or any API sends back a JSON string , we convert it tp java to do  javascript operations like :res.json({ id: "L001", amount: "10000" })
-  } catch {
+  } catch {                           // If it fails, return raw string
     return { message: successMsg, data: str };     //If result is a plain string
   }
 }
