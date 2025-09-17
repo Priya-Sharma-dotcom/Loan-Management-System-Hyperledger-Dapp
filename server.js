@@ -91,7 +91,7 @@ app.post("/registerLoan", async (req, res) => {
 });
 
 // Create Loan Agreement
-app.put("/createLoanAgreement", async (req, res) => {
+app.put("/createLoanAgreement/:id", async (req, res) => {
   try {
     const { id } = req.body;
     const contract = await getContract();
