@@ -93,7 +93,7 @@ app.post("/registerLoan", async (req, res) => {
 // Create Loan Agreement
 app.put("/createLoanAgreement/:id", async (req, res) => {
   try {
-    const { id } = req.body;
+    const { id } = req.params;
     const contract = await getContract();
     const result = await contract.submitTransaction("createLoanAgreement", id);
     res.json(safeResponse(result, "Loan agreement created successfully"));
