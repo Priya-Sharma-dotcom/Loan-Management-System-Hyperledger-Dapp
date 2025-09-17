@@ -257,7 +257,7 @@
 
   async function createLoanAgreement() {
     const id= document.getElementById("agreementId").value ;
-    await callAPI(`${API}/createLoanAgreement/${id}`, {
+    await callAPI(API+"/createLoanAgreement/"+id, {
       method: "PUT",
       headers: { "Content-Type": "application/json" }
     }, "agreementResult");
