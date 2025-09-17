@@ -256,11 +256,10 @@
 //When the server responds, it shows the result inside the <pre id="registerResult"></pre> block on the webpage.
 
   async function createLoanAgreement() {
-    const payload = { id: document.getElementById("agreementId").value };
-    await callAPI(`${API}/createLoanAgreement`, {
+    const id= document.getElementById("agreementId").value ;
+    await callAPI(`${API}/createLoanAgreement/${id}`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
+      headers: { "Content-Type": "application/json" }
     }, "agreementResult");
   }
 
