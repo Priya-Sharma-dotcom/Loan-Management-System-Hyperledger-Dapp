@@ -152,6 +152,6 @@ app.get("/loan/:id", async (req, res) => {
 
 // Start server
 const PORT = 3000;
-app.listen(PORT, () => {
-  console.log(`🚀 Server running at http://localhost:${PORT}`);
+app.listen(PORT, () => {                                           //or app.listen(PORT,function(){console.log("");});
+  console.log(`🚀 Server running at http://localhost:${PORT}`); 
 });
