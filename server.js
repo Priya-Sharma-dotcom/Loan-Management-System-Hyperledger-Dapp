@@ -103,7 +103,7 @@ app.put("/createLoanAgreement/:id", async (req, res) => {
 });
 
 // Update Loan Amount
-app.put("/updateLoanAmount/:id", async (req, res) => {
+app.put("/updateLoanAmount/:id", async (req, res) => { //:id :- A placeholder for a dynamic value
   try {
     const { id } = req.params; // ${id} in the URL → this is a path parameter.Example: /updateLoanAmount/LOAN123 → req.params.id = "LOAN123".
     const { newAmount } = req.body;
