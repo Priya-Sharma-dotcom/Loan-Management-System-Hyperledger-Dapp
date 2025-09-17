@@ -34,13 +34,13 @@ const ccpPath = path.resolve(
 // === Helper to wrap chaincode responses safely ===
 function safeResponse(result, successMsg) {
   if (!result || result.length === 0) {
-    return { message: successMsg }; //Empty result ≠ failure.It just means “this transaction doesn’t produce output.”
+    return { message: successMsg }; //Empty result ≠ failure.It just means “this transaction doesn’t produce output like POST ”
   }
-  const str = result.toString();
+  const str = result.toString();           //If result exists, convert it to a string.Hyperledger Fabric often returns a Buffer, so this ensures it's readable (e.g., from binary to text).
   try {
-    return JSON.parse(str);
+    return JSON.parse(str);                //if result is JSON, convert JSON String to Java Object as When Hyperledger Fabric or any API sends back a JSON string , we convert it tp java to do  javascript operations like :res.json({ id: "L001", amount: "10000" })
   } catch {
-    return { message: successMsg, data: str };
+    return { message: successMsg, data: str };     //If result is a plain string
   }
 }
 
