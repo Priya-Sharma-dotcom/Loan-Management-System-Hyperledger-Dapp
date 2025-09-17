@@ -216,6 +216,8 @@
     }
   }
 
+//Stateless Request(REST API): Each HTTP request contains all the info needed to process it — no session or state is stored on the server between requests. 
+
   async function initLedger() {
     await callAPI(`${API}/initLedger`, { method: "POST" }, "initResult");  //call an API endpoint http://localhost:3000/initLedger with a POST request. Output goes to initResult.
   }
