@@ -201,6 +201,8 @@
   <script>
   const API = "http://localhost:3000";
 
+//API JSON string ➡️ JavaScript Object ➡️ Pretty JSON string (for UI)
+
   async function callAPI(url, options, outputId) {
     const outputElement = document.getElementById(outputId); // Get the element  //the id of the <pre> tag (or any element) where you want to show the result.
     outputElement.textContent = 'Loading...'; // Set its visible content    //While the request is in progress, show the text "Loading..." so users know something is happenin
