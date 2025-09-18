@@ -86,7 +86,7 @@ app.post("/registerLoan", async (req, res) => {   //ROUTE HANDLER=It handles HTT
     const result = await contract.submitTransaction(
       "registerLoan",
       id,
-      amount,
+      amount,                          //values of these are taken from: const { id, amount, borrower, lender, rate }
       borrower,
       lender,
       rate
