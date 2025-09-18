@@ -54,6 +54,11 @@ async function getContract() {
   const ccp = yaml.load(fs.readFileSync(ccpPath, "utf8"));            //fs.readFileSync(...): reads the YAML file.  yaml.load(...): converts YAML to a JavaScript object.
   const wallet = await Wallets.newFileSystemWallet("wallet");         //Loads the identity wallet(id of appUser- digitalcert and pvt keys) stored on the file system.
 
+  const identity = await wallet.get("appUser");
+  if (!identity) {
+    throw new Error("appUser identity not found in wallet");
+  }
+
   const gateway = new Gateway();                                       //Acts as the bridge between your app and the blockchain.  
   await gateway.connect(ccp, {                                         
     wallet,
@@ -111,6 +116,7 @@ app.put("/createLoanAgreement/:id", async (req, res) => {
     const result = await contract.submitTransaction("createLoanAgreement", id);
     res.json(safeResponse(result, "Loan agreement created successfully"));
   } catch (error) {
+    console.error(err);
     res.status(500).json({ error: error.message });
   }
 });
