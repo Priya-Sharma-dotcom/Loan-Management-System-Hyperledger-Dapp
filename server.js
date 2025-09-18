@@ -100,7 +100,13 @@ app.post("/registerLoan", async (req, res) => {   //ROUTE HANDLER=It handles HTT
 // Create Loan Agreement
 app.put("/createLoanAgreement/:id", async (req, res) => {
   try {
-    const { id } = req.params;
+    const { id } = req.params;                     
+
+//| Code                         | what it does?
+//| ---------------------------- | -------------------------------------------------- |
+//| `const id = req.params;`     | `id` is the **whole object** → `{ id: "LOAN123" }` |
+//| `const { id } = req.params;` | `id` is the **actual value** → `"LOAN123"` ✅     |
+
     const contract = await getContract();
     const result = await contract.submitTransaction("createLoanAgreement", id);
     res.json(safeResponse(result, "Loan agreement created successfully"));
