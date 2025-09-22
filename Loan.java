@@ -1,4 +1,4 @@
-package _LoanManagementSystem;
+package _LoanManagementSystem;          //gradle project name
 
 import java.util.Objects;
 
