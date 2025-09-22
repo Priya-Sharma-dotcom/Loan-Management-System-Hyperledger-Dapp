@@ -39,15 +39,18 @@ public class LoanContract implements ContractInterface {
     private enum Role_ERRORS { Unauthorized, InvalidRole }
 
     // Helper method to get the client's role from their certificate attributes
-    private String getClientRole(Context ctx) {
-        String clientRole = null;
-        try {
-            clientRole = ctx.getClientIdentity().getAttributeValue("role");
-        } catch (Exception e) {
-            System.out.println("Error retrieving client role: " + e.getMessage());
+   private String getClientRole(Context ctx) {
+    try {
+        String role = ctx.getClientIdentity().getAttributeValue("role");
+        if (!"borrower".equals(role) && !"lender".equals(role)) {
+            throw new ChaincodeException("Invalid role in certificate", Role_ERRORS.InvalidRole.name());
         }
-        return clientRole;
+        return role;
+    } catch (Exception e) {
+        throw new ChaincodeException("Error retrieving client role: " + e.getMessage(),Role_ERRORS.InvalidRole.name());
     }
+}
+
 
     @Transaction
     public void initLedger(final Context ctx) {
