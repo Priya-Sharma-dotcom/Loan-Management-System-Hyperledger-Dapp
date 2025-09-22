@@ -39,24 +39,28 @@ public class LoanContract implements ContractInterface {
     private enum Role_ERRORS { Unauthorized, InvalidRole }
 
     // Helper method to get the client's role from their certificate attributes
-   private String getClientRole(Context ctx) {
-    try {
-        String role = ctx.getClientIdentity().getAttributeValue("role");
-        if (!"borrower".equals(role) && !"lender".equals(role)) {
-            throw new ChaincodeException("Invalid role in certificate", Role_ERRORS.InvalidRole.name());
-        }
-        return role;
-    } catch (Exception e) {
-        throw new ChaincodeException("Error retrieving client role: " + e.getMessage(),Role_ERRORS.InvalidRole.name());
-    }
-}
-
-
+  
+  private String getClientRole(final Context ctx) {
+		String clientRole=null;
+		try {
+			clientRole=ctx.getClientIdentity().getAttributeValue("role");
+            
+			if(clientRole==null || (!clientRole.equals("lender") && !clientRole.equals("borrower"))) {
+				throw new ChaincodeException("invalid role",Role_ERRORS.InvalidRole.name());
+			}			
+		}
+		catch(Exception e) {     //runtime errors
+			throw new ChaincodeException("error retriving role"+e.getMessage(),Role_ERRORS.InvalidRole.name());
+		}
+      
+		return clientRole;
+	}
+  
     @Transaction
     public void initLedger(final Context ctx) {
         // Restrict the initLedger function to be callable only by the borrower
         String clientRole = getClientRole(ctx);
-        if (clientRole == null || !clientRole.equals("borrower")) {
+        if (!clientRole.equals("borrower")) {
             String errMsg = "Only the borrower can initialize the ledger.";
             System.out.println(errMsg);
             throw new ChaincodeException(errMsg, Role_ERRORS.Unauthorized.name());
@@ -80,7 +84,7 @@ public class LoanContract implements ContractInterface {
 
         // Only the borrower can register a loan
         String clientRole = getClientRole(ctx);
-        if (clientRole == null || !clientRole.equals("borrower")) {
+        if (!clientRole.equals("borrower")) {
             String errMsg = "Only the borrower can register a loan.";
             System.out.println(errMsg);
             throw new ChaincodeException(errMsg, Role_ERRORS.Unauthorized.name());
@@ -97,7 +101,7 @@ public class LoanContract implements ContractInterface {
 
         // Only the lender can create the loan agreement (finalize the loan)
         String clientRole = getClientRole(ctx);
-        if (clientRole == null || !clientRole.equals("lender")) {
+        if (!clientRole.equals("lender")) {
             String errMsg = "Only the lender can create a loan agreement.";
             System.out.println(errMsg);
             throw new ChaincodeException(errMsg, Role_ERRORS.Unauthorized.name());
@@ -129,7 +133,7 @@ public class LoanContract implements ContractInterface {
 
         // Only the lender can update the loan amount
         String clientRole = getClientRole(ctx);
-        if (clientRole == null || !clientRole.equals("lender")) {
+        if (!clientRole.equals("lender")) {
             String errMsg = "Only the lender can update the loan amount.";
             System.out.println(errMsg);
             throw new ChaincodeException(errMsg, Role_ERRORS.Unauthorized.name());
@@ -162,7 +166,7 @@ public class LoanContract implements ContractInterface {
 
         // Only the lender can update the interest rate
         String clientRole = getClientRole(ctx);
-        if (clientRole == null || !clientRole.equals("lender")) {
+        if (!clientRole.equals("lender")) {
             String errMsg = "Only the lender can update the interest rate.";
             System.out.println(errMsg);
             throw new ChaincodeException(errMsg, Role_ERRORS.Unauthorized.name());
