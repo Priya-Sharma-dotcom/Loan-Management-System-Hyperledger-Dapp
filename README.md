@@ -185,7 +185,14 @@ app.post("/registerLoan", ...)  // RESTful endpoint for creating a loan
 Both use Fabric SDK → just different SDKs (Java vs Node.js).
 
 
-
+cd /home/labuser/eclipse-workspace/LoanManagementClient/webapp
+nano server.js
+cd public
+nano index.html
+npm init -y
+npm install express js-yaml cors body-parser fabric-network
+node server.js
+npx live-server index.html
 ---
 
 ## 📚 License
