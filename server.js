@@ -17,22 +17,11 @@ const fs = require("fs"); //Node.js module to read/write files.
 const app = express(); //creates express application= instance of express web server
 app.use(cors());
 app.use(bodyParser.json());
-
+app.use(express.static("public"));
 
 // Connection profile path  =====Common Connection Profile, which contains:Peer addresses,CA info,TLS options,Org configs✅ This profile tells your app how to connect to the Fabric network=====
-const ccpPath = path.resolve(
-  process.cwd(),    //current working directory
-  "..",
-  "..",
-  "fabric-samples",
-  "test-network",
-  "organizations",
-  "peerOrganizations",
-  "org1.example.com",
-  "connection-org1.yaml" 
-);
-
-
+const ccpPath = "/home/labuser/fabric-samples/test-network/organizations/peerOrganizations/org1.example.com/connection-org1.yaml";
+const walletPath = "/home/labuser/eclipse-workspace/LoanManagementClient/wallet";
 
 // === Helper to wrap chaincode responses safely ===
 function safeResponse(result, successMsg) {
@@ -52,7 +41,7 @@ function safeResponse(result, successMsg) {
 // === Get contract instance === This connects your Node.js app to the Hyperledger Fabric blockchain, gets access to a specific network channel and returns a reference to the smart contract (chaincode) so you can invoke or query it
 async function getContract() {
   const ccp = yaml.load(fs.readFileSync(ccpPath, "utf8"));            //fs.readFileSync(...): reads the YAML file.  yaml.load(...): converts YAML to a JavaScript object.
-  const wallet = await Wallets.newFileSystemWallet("wallet");         //Loads the identity wallet(id of appUser- digitalcert and pvt keys) stored on the file system.
+  const wallet = await Wallets.newFileSystemWallet(walletPath);         //Loads the identity wallet(id of appUser- digitalcert and pvt keys) stored on the file system.
 
   const identity = await wallet.get("appUser");
   if (!identity) {
