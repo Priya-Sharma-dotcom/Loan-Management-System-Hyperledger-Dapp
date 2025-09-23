@@ -98,7 +98,7 @@ app.post("/registerLoan", async (req, res) => {   //ROUTE HANDLER=It handles HTT
     );
     res.json(safeResponse(result, "Loan registered successfully"));
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: error.message });              //2xx → Success responses, 4xx → Client-side errors, 5xx → Server-side errors
   }
 });
 
