@@ -14,7 +14,7 @@ export CORE_PEER_TLS_ROOTCERT_FILE_ORG2=${PWD}/organizations/peerOrganizations/o
 CHANNEL_NAME="mychannel"
 CHAINCODE_NAME="LoanContract"
 CHAINCODE_VERSION="1"
-CHAINCODE_PATH="../../eclipse-workspace/Loan/lib/build/install/lib"
+CHAINCODE_PATH="../../eclipse-workspace/LoanManagementSystem/lib/build/install/lib"
 CHAINCODE_LANG="java"
 CHAINCODE_LABEL="LoanContract_1"
 
