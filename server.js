@@ -34,7 +34,7 @@ const logger = winston.createLogger({
 const app = express();                   //creates express application= instance of express web server
 app.use(cors());
 app.use(bodyParser.json());
-app.use(express.static("public"));
+app.use(express.static("public"));       //This line tells your Express.js server to serve static files (like HTML, CSS, JS, images, fonts, etc.) from a folder named public/.
 app.use(morgan("combined"));          //// Use Morgan for HTTP request logging, combined=predefined format string that tells Morgan what information to log for each HTTP request.Logs HTTP Req on Console
 
 
