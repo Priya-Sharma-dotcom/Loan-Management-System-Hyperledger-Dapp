@@ -31,11 +31,11 @@ const logger = winston.createLogger({
 });
 
 
-const app = express(); //creates express application= instance of express web server
+const app = express();                   //creates express application= instance of express web server
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static("public"));
-app.use(morgan("combined"));          //// Use Morgan for HTTP request logging, combined=predefined format string that tells Morgan what information to log for each HTTP request.
+app.use(morgan("combined"));          //// Use Morgan for HTTP request logging, combined=predefined format string that tells Morgan what information to log for each HTTP request.Logs HTTP Req on Console
 
 
 // Connection profile path  =====Common Connection Profile, which contains:Peer addresses,CA info,TLS options,Org configs✅ This profile tells your app how to connect to the Fabric network=====
@@ -100,7 +100,7 @@ app.post("/initLedger", async (req, res, next) => {                             
   } catch (error) {
     logger.error("initLedger failed", { error: error.message });                //Morgan calls next() → passes control to the next middleware or route handler.      
     next(error);                                                                //control given to Error Middleware //next() is a Express function used to Pass control to the next middleware in the chain.
-.
+
   }
 });
 
@@ -194,11 +194,11 @@ app.get("/loan/:id", async (req, res, next) => {
 });
 
 // === Error Handling Middleware === // 	It logs the error with Winston (logger.error).It sends a JSON error response to the client:
-//{
-// "error": "Something went wrong!",
-//  "details": "appUser identity not found in wallet"
-//}
+// {"error": "Something went wrong!",
+//  "details": "appUser identity not found in wallet"}
+
 //	This ensures you don’t crash the server and always send a clear error.
+//Placed after all routes so that next(error) works
 
 app.use((err, req, res, next) => {
   logger.error("Unhandled error", { error: err.message });
@@ -208,5 +208,5 @@ app.use((err, req, res, next) => {
 // Start server
 const PORT = 3000;
 app.listen(PORT, () => {                                           //or app.listen(PORT,function(){console.log("");});
-  console.log(`🚀 Server running at http://localhost:${PORT}`); 
+  logger.info(`🚀 Server running at http://localhost:${PORT}`); 
 });
