@@ -199,6 +199,7 @@ app.get("/loan/:id", async (req, res, next) => {
 
 //	This ensures you don’t crash the server and always send a clear error.
 //Placed after all routes so that next(error) works
+//Even after a try...catch block, if you still call next(error) inside the catch, Express will pass control to the error-handling middleware.
 
 app.use((err, req, res, next) => {
   logger.error("Unhandled error", { error: err.message });
