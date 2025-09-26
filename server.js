@@ -99,7 +99,7 @@ app.post("/initLedger", async (req, res, next) => {                             
     res.json({ message: "Ledger initialized successfully" });                   //response in json
   } catch (error) {
     logger.error("initLedger failed", { error: error.message });                //Morgan calls next() → passes control to the next middleware or route handler.      
-    next(error);                                                                //control given to Error Middleware
+    next(error);                                                                //control given to Error Middleware //next() is a Express function used to Pass control to the next middleware in the chain.
 .
   }
 });
