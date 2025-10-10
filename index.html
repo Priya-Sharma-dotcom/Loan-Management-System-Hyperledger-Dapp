@@ -208,7 +208,7 @@
     outputElement.textContent = 'Loading...'; // Set its visible content    //While the request is in progress, show the text "Loading..." so users know something is happenin
     try {
       const res = await fetch(url, options);    //fetch(url, options) — built-in JS function to send HTTP requests to server. Returns a Response object (promise). await waits for the response to come back.
-      const data = await res.json();     //parse the response body as JSON to Java object "data"
+      const data = await res.json();     //parse the response body as JSON to Java object "data" //reads body of response
       if (!res.ok) {
         throw new Error(data.message || 'An error occurred');      //manually throw an error.If the backend gave a message (e.g., "Loan ID already exists"), use it.Otherwise, just say: "An error occurred".
       }
